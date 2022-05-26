@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FILTERGRAPH>
+  <FILTER uid="22" x="0.25" y="0.1">
+    <PLUGIN name="MIDI Input" descriptiveName="" format="Internal" category="I/O devices"
+            manufacturer="JUCE" version="1.0" file="" uniqueId="a9e4f9eb"
+            isInstrument="0" fileTime="0" infoUpdateTime="0" numInputs="0"
+            numOutputs="0" isShell="0" uid="a9e4f9eb"/>
+    <STATE>0.</STATE>
+    <LAYOUT>
+      <INPUTS>
+        <BUS index="0" layout="disabled"/>
+      </INPUTS>
+      <OUTPUTS>
+        <BUS index="0" layout="disabled"/>
+      </OUTPUTS>
+    </LAYOUT>
+  </FILTER>
+  <FILTER uid="23" x="0.4568452380952381" y="0.83125">
+    <PLUGIN name="Audio Output" descriptiveName="" format="Internal" category="I/O devices"
+            manufacturer="JUCE" version="1.0" file="" uniqueId="724248cb"
+            isInstrument="0" fileTime="0" infoUpdateTime="0" numInputs="2"
+            numOutputs="0" isShell="0" uid="724248cb"/>
+    <STATE>0.</STATE>
+    <LAYOUT>
+      <INPUTS>
+        <BUS index="0" layout="L R"/>
+      </INPUTS>
+      <OUTPUTS>
+        <BUS index="0" layout="disabled"/>
+      </OUTPUTS>
+    </LAYOUT>
+  </FILTER>
+  <FILTER uid="26" x="0.4494047619047619" y="0.56875" uiLastX_Normal="43"
+          uiLastY_Normal="242" uiopen_Normal="0">
+    <PLUGIN name="LEMSynth" format="VST3" category="Instrument|Synth" manufacturer="yourcompany"
+            version="1.0.0" file="D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Builds\VisualStudio2019\x64\Debug\VST3\LEMSynth.vst3"
+            uniqueId="59ce629" isInstrument="1" fileTime="181002c7b11" infoUpdateTime="181002dd205"
+            numInputs="0" numOutputs="2" isShell="0" uid="e95c0e95"/>
+    <STATE>1043.VMjLgn.A...O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9XSN33hUMoFSmQUat3hKt7zJlcUXxEDZisVRxH1a3vVX3fjTLQmKogjYTwVXogiQY8FMwjENHIUUTkEUKMCR38TNtHzSPUDahcFLVkkdUwlX4QyPOAUQpQUPvPDRuEkUOgFQFMldEECVwkjPHESQFEFLUY0SnwTdLEiZosTLtLDS1oVdMECUo0DdTkFR0MyPOAUQpQUPvPDRuEkUOgFSVMld3vVVrkjPHESQFEFLUY0SnY1TLkGQosjcHg2R4X2PTETRUAUSAIkVpASZHoVUwf0Yq0FRlg0UXIWUWkENHgGSvXVdMQmKCwjcHMTS5QzPMYGVowDLHg2R4X2PTETRUAUSAIkVpASZHw1ZFEldUwlXBs1QhcVSxHFZtf1XmcmUisFLogzcyHDSncCZOciKUAkTEQ0TlolQYgCRnk0a2YzXqkzQUQSPWkEZtf1XmcmUisFLogjcyHDSncCZOciKUAkTEQ0TlolQYgCRRE1YMczXqkjLQc1ZrEFZtf1XmcmUisFLogzbXk1R1gDdKkicCQUPIUETMEjTZoFLogTcMYzX3gjPHESQFEFLUY0SnoGZLQmKogTcyLzSPUjZTEDLDgzaQY0SncSLhkVQ4E0YqwVXn4BZic1cVM1ZvjFR1MCdMQiZS4DMpMkSvfTdLcGVowzLPkFSncCZOciKUAkTEQ0TlolQYgCR3EVdMYESTs1QhsVRBgTLEYTXvTkUOglKosjcHg2R4X2PTETRUAUSAIkVpASZHUWSxfEdhQEVuQCaHYFVWgkbUcUV3fjPLQmXS4DMpMkSzn1TMgGSSwTLHMjS5gTZHU2LC8DTEoFUAACQH8VTV8DZ2DiXokzPUQSPWkEZtf1XmcmUisFLogzcyHDSncCZOciKUAkTEQ0TlolQYgCRnI1Z2YUVm0zUYglKnM1Y2Y0XqASZHAiKCwjcyHDSncCZOciKUAkTEQ0TlolQYgCRnI1ZMISXzUDagkVUrgjYXcEVxU0UYgCRR0DcXMkSzn1TNQiYCwDMHkVSvPTdLICR3sTN1MDUAkTUP0TPRokZvjFR4UkLhoWQVoEcIIDRwTjQgASUV8DZtj1Ry3xPLYmKCwjcDMESzfzPLQCRS4DZ2f1S2biPTcVRWg0bUYzXqkjLhkiKt3hKt3hKt3hKt3haTU0PUQDU3sFaicVTWkEQEYzXmEDTtDDRTQlcEEiX4EDTtDDSt3xXt3hKt3hKt3hKlIUUMQUTPkzUZESQFM1ZQQEV5UjQ77RRC8Vav8lak4Fc9vyKVMEUy.Ea0cVZtMEcgQWY9..</STATE>
+    <LAYOUT>
+      <INPUTS/>
+      <OUTPUTS>
+        <BUS index="0" layout="L R"/>
+      </OUTPUTS>
+    </LAYOUT>
+  </FILTER>
+  <CONNECTION srcFilter="22" srcChannel="4096" dstFilter="26" dstChannel="4096"/>
+  <CONNECTION srcFilter="26" srcChannel="0" dstFilter="23" dstChannel="0"/>
+  <CONNECTION srcFilter="26" srcChannel="1" dstFilter="23" dstChannel="1"/>
+</FILTERGRAPH>

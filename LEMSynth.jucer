@@ -6,9 +6,15 @@
               cppLanguageStandard="17">
   <MAINGROUP id="UJBRfe" name="LEMSynth">
     <GROUP id="{CB1C7664-669A-70E3-2DC1-C8832A65936C}" name="Source">
-      <GROUP id="{68BD3BFD-1E9E-0E2C-5C4F-2A8E4648890C}" name="myFilters">
-        <FILE id="lwnHmC" name="myFilters.cpp" compile="1" resource="0" file="Source/myFilters/myFilters.cpp"/>
-        <FILE id="Ww29bq" name="myFilters.h" compile="0" resource="0" file="Source/myFilters/myFilters.h"/>
+      <GROUP id="{CB390530-4EBA-F84F-53D0-144CB7AF8311}" name="Libraries">
+        <GROUP id="{825DCCC8-62DD-4E1D-64A4-98A7FDF1076A}" name="myFilters">
+          <FILE id="VWtlds" name="myFilters.cpp" compile="1" resource="0" file="Source/Libraries/myFilters/myFilters.cpp"/>
+          <FILE id="nBb9qr" name="myFilters.h" compile="0" resource="0" file="Source/Libraries/myFilters/myFilters.h"/>
+        </GROUP>
+        <GROUP id="{9CBB84AA-44CE-8C14-C46D-E62E92D95A69}" name="myOSC">
+          <FILE id="qTQpjM" name="myOSC.cpp" compile="1" resource="0" file="Source/Libraries/myOSC/myOSC.cpp"/>
+          <FILE id="cdEzy7" name="myOSC.h" compile="0" resource="0" file="Source/Libraries/myOSC/myOSC.h"/>
+        </GROUP>
       </GROUP>
       <GROUP id="{E8B6CCF6-7765-657B-A9D8-E1A9DBE87C7A}" name="Maximilian">
         <FILE id="HB7ECA" name="fft.cpp" compile="1" resource="0" file="../Libraries/Maximilian/fft.cpp"/>
@@ -52,7 +58,7 @@
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="LEMSynth" headerPath="D:\Universit&#224;\MAGISTRALE\LEM\Tesina\Libraries\Maximilian&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\myFilters"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="LEMSynth" headerPath="D:\Universit&#224;\MAGISTRALE\LEM\Tesina\Libraries\Maximilian&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myFilters&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myOSC"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="LEMSynth"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

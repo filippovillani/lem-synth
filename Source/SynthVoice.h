@@ -3,6 +3,7 @@
 #include "SynthSound.h"
 #include "maximilian.h"
 #include "myFilters.h"
+#include "myOSC.h"
 
 class SynthVoice : public juce::SynthesiserVoice
 {
@@ -26,7 +27,7 @@ public:
         osc2.sampleRate = getSampleRate();
         switch (osc1Wave) {
         case 0:
-            sample1 = osc1.sinewave(frequency);
+            sample1 = osc1.sine(frequency);
             break;
         case 1:
             sample1 = osc1.saw(frequency);
@@ -38,13 +39,13 @@ public:
             sample1 = osc1.triangle(frequency);
             break;
         default:
-            sample1 = osc1.sinewave(frequency);
+            sample1 = osc1.sine(frequency);
             break;
         }
 
         switch (osc2Wave) {
         case 0:
-            sample2 = osc2.sinewave(frequency * octShiftFreq[octIdx + 2]);
+            sample2 = osc2.sine(frequency * octShiftFreq[octIdx + 2]);
             break;
         case 1:
             sample2 = osc2.saw(frequency * octShiftFreq[octIdx + 2]);
@@ -59,7 +60,7 @@ public:
             sample2 = osc2.noise();
             break;
         default:
-            sample2 = osc2.sinewave(frequency * octShiftFreq[octIdx + 2]);
+            sample2 = osc2.sine(frequency * octShiftFreq[octIdx + 2]);
             break;
         }
         return (sample1 * osc1level + sample2 * osc2level) / 2;
@@ -154,7 +155,7 @@ private:
 
     float masterGain;
 
-    maxiOsc osc1, osc2;
+    myOsc osc1, osc2;
     maxiEnv env1;
     myFilter filter;
 

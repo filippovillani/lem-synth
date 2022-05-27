@@ -10,14 +10,13 @@
 
 #pragma once
 
-#ifndef PI
-#define PI  3.1415926535897932384626433832795
+#ifndef M_PI
+#define M_PI  3.1415926535897932384626433832795
 #endif
-#ifndef TWOPI
-#define TWOPI 6.283185307179586476925286766559
+#ifndef M_TWOPI
+#define M_TWOPI 6.283185307179586476925286766559
 #endif
 
-#include <iostream>
 #include <random>
 
 class myOsc {
@@ -27,6 +26,7 @@ class myOsc {
 	float u2;
 	float phi;
 	float r;
+
 
 public:
 	float sampleRate;

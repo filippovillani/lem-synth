@@ -17,7 +17,7 @@ double myFilter::LPF1ord(double input, float cutoff) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = TWOPI * cutoff / sampleRate;
+    theta = M_TWOPI * cutoff / sampleRate;
     gamma = cos(theta) / (1.f + sin(theta));
     // Coefficients
     a0 = (1.f - gamma) / 2;
@@ -35,7 +35,7 @@ double myFilter::HPF1ord(double input, float cutoff) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = TWOPI * cutoff / sampleRate;
+    theta = M_TWOPI * cutoff / sampleRate;
     gamma = cos(theta) / (1.f + sin(theta));
     // Coefficients
     a0 = (1.f + gamma) / 2;
@@ -54,7 +54,7 @@ double myFilter::LPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = TWOPI * cutoff / sampleRate;
+    theta = M_TWOPI * cutoff / sampleRate;
     d = 1 / Q;
     beta = 0.5 * (1.f - d / 2 * sin(theta) / (1.f + d / 2 * sin(theta)));
     gamma = (0.5f + beta) * cos(theta);
@@ -78,7 +78,7 @@ double myFilter::HPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = TWOPI * cutoff / sampleRate;
+    theta = M_TWOPI * cutoff / sampleRate;
     d = 1 / Q;
     beta = 0.5 * (1.f - d / 2 * sin(theta)) / (1.f + d / 2 * sin(theta));
     gamma = (0.5f + beta) * cos(theta);
@@ -102,10 +102,10 @@ double myFilter::BPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = TWOPI * cutoff / sampleRate;
+    theta = M_TWOPI * cutoff / sampleRate;
     argtan = theta / (2 * Q);
-    if (argtan >= 0.999 * PI / 2)
-        argtan = 0.999 * PI / 2;
+    if (argtan >= 0.999 * M_PI / 2)
+        argtan = 0.999 * M_PI / 2;
     beta = 0.5 * (1.f - tan(argtan)) / (1.f + tan(argtan));
     gamma = (0.5f + beta) * cos(theta);
     // Coefficients

@@ -10,62 +10,74 @@ myOsc::myOsc() {
 
 double myOsc::sine(double frequency) {        
     output = (float)sin(phase);
-    phase += frequency * TWOPI / sampleRate;
+    phase += frequency * M_TWOPI / sampleRate;
     
-    if (phase >= TWOPI)
-        phase -= TWOPI;
+    if (phase >= M_TWOPI)
+        phase -= M_TWOPI;
 
     return output;
 }
 
 double myOsc::square(double frequency) {
-    if (phase <= PI)
+    if (phase <= M_PI)
         output = 1.;
     else
         output = -1.;
 
-    phase += frequency * TWOPI / sampleRate;
+    phase += frequency * M_TWOPI / sampleRate;
 
-    if (phase >= TWOPI)
-        phase -= TWOPI;
+    if (phase >= M_TWOPI)
+        phase -= M_TWOPI;
 
     return output;
 }
 
 double myOsc::saw(double frequency) {
-    output = 1. - (phase / PI);
-    phase += frequency * TWOPI / sampleRate;
+    output = 1. - (phase / M_PI);
+    phase += frequency * M_TWOPI / sampleRate;
 
-    if (phase >= TWOPI)
-        phase -= TWOPI;
+    if (phase >= M_TWOPI)
+        phase -= M_TWOPI;
 
     return output;
 }
 
 double myOsc::triangle(double frequency) {
-    output = (phase / PI) - 1.;
+    output = (phase / M_PI) - 1.;
     if (output < 0)
         output = -output;
 
-    phase += frequency * TWOPI / sampleRate;
+    phase += frequency * M_TWOPI / sampleRate;
 
-    if (phase >= TWOPI)
-        phase -= TWOPI;
+    if (phase >= M_TWOPI)
+        phase -= M_TWOPI;
 
     return output;
 }
 
 double myOsc::noise() {
-    //u1 = rand() / (float)RAND_MAX;
-    //u2 = rand() / (float)RAND_MAX;
 
-    //phi = TWOPI * u1;
-    //r = sqrt(-2. * log(1. - u2));
+    constexpr double epsilon = std::numeric_limits<double>::epsilon();
 
-    //output = r * (float)cos(phi);
-    r = rand() / (float)RAND_MAX;
-    output = r * 2. - 1.;
+    //initialize the random uniform number generator (runif) in a range 0 to 1
+    static std::mt19937 rng(std::random_device{}()); // Standard mersenne_twister_engine seeded with rd()
+    static std::uniform_real_distribution<> runif(0.0, 1.0);
+
+    //create two random numbers, make sure u1 is greater than epsilon
+    double u1, u2;
+    do
+    {
+        u1 = runif(rng);
+    } while (u1 <= epsilon);
+    u2 = runif(rng);
+
+    auto mag = 0.25 * sqrt(-2.0 * log(u1));
+    auto output = mag * cos(M_TWOPI * u2);
+
     return output;
 }
+
+
+
 
 

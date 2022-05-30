@@ -15,7 +15,7 @@
 Oscillator::Oscillator(LEMSynthAudioProcessor& p) :
     audioProcessor(p)
 {
-    setSize(200, 200);
+    setSize(300, 200);
     // OSC 1
     osc1Menu.addItem("Sine", 1);
     osc1Menu.addItem("Saw", 2);
@@ -38,6 +38,14 @@ Oscillator::Oscillator(LEMSynthAudioProcessor& p) :
     octShiftSlider1.setValue(0);
     addAndMakeVisible(&octShiftSlider1);
 
+    detuneSlider1.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    detuneSlider1.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+    detuneSlider1.setRange(-100, 100);
+    detuneSlider1.setTextValueSuffix(" cents");
+    detuneSlider1.setValue(0);
+    detuneSlider1.setNumDecimalPlacesToDisplay(0);
+    addAndMakeVisible(&detuneSlider1);
+
     // OSC 2
     osc2Menu.addItem("Sine", 1);
     osc2Menu.addItem("Saw", 2);
@@ -54,12 +62,22 @@ Oscillator::Oscillator(LEMSynthAudioProcessor& p) :
     octShiftSlider2.setValue(0);
     addAndMakeVisible(&octShiftSlider2);
 
+    detuneSlider2.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    detuneSlider2.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+    detuneSlider2.setRange(-100, 100);
+    detuneSlider2.setTextValueSuffix(" cents");
+    detuneSlider2.setValue(0);
+    detuneSlider2.setNumDecimalPlacesToDisplay(0);
+    addAndMakeVisible(&detuneSlider2);
+
     // Attachments
     osc1Choice = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "osc1Type", osc1Menu);
     oscMixAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "oscMix", oscMixSlider);
     osc2Choice = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "osc2Type", osc2Menu);
     octShiftAttachment1 = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "oct1", octShiftSlider1);
     octShiftAttachment2 = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "oct2", octShiftSlider2);
+    detuneAttachment1 = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "detune1", detuneSlider1);
+    detuneAttachment2 = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "detune2", detuneSlider2);
 }
 
 Oscillator::~Oscillator()
@@ -90,5 +108,7 @@ void Oscillator::resized()
     osc2Menu.setBounds(50, 121, 100, 22);
     octShiftSlider1.setBounds(157, 52, 40, 30);
     octShiftSlider2.setBounds(157, 125, 40, 30);
+    detuneSlider1.setBounds(200, 52, 70, 70);
+    detuneSlider2.setBounds(200, 125, 70, 70);
 }
 

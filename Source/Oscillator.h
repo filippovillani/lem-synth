@@ -30,10 +30,12 @@ private:
     juce::ComboBox osc1Menu, osc2Menu;
     juce::Slider oscMixSlider;
     juce::Slider octShiftSlider1, octShiftSlider2;
+    juce::Slider detuneSlider1, detuneSlider2;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> osc1Choice, osc2Choice;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> oscMixAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> octShiftAttachment1, octShiftAttachment2;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> detuneAttachment1, detuneAttachment2;
 
     LEMSynthAudioProcessor& audioProcessor;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Oscillator)

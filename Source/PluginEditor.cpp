@@ -36,15 +36,11 @@ void LEMSynthAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-    juce::Rectangle<int> area = getLocalBounds();
 
-    const int componentWidth = 200;
-    const int componentHeight = 200;
-
-    oscGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
-    envGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
-    filterGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
-    mainGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
-    effectsGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
+    oscGUI.setBounds(0, 0, 300, 200);
+    envGUI.setBounds(300, 0, 200, 200);
+    filterGUI.setBounds(500, 0, 200, 200);
+    mainGUI.setBounds(700, 0, 100, 200);
+    effectsGUI.setBounds(800, 0, 200, 200);
 
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <JuceHeader.h>
+#include <cmath>
 #include "SynthSound.h"
 #include "myFilters.h"
 #include "myOSC.h"
@@ -13,14 +14,17 @@ public:
     bool canPlaySound(juce::SynthesiserSound* sound) override {
         return dynamic_cast<SynthSound*> (sound) != nullptr;
     }
-    // ===========================================
+    // ==================== OSCILLATOR =======================
     void getOscParams(std::atomic<float>* selection1, std::atomic<float>* mix, std::atomic<float>* selection2,  
-        std::atomic<float>* oct1, std::atomic<float>* oct2) {
+        std::atomic<float>* oct1, std::atomic<float>* oct2,
+        std::atomic<float>* cents1, std::atomic<float>* cents2) {
         osc1Wave = *selection1;
         oscMix = *mix / 100.;
         osc2Wave = *selection2;
         octIdx1 = *oct1;
         octIdx2 = *oct2;
+        detune1 = pow(2, *cents1 / 1200.);
+        detune2 = pow(2, *cents2 / 1200.);
     }
     
     double setOscType() {
@@ -28,46 +32,45 @@ public:
         osc2.sampleRate = getSampleRate();
         switch (osc1Wave) {
         case 0:
-            sample1 = osc1.sine(frequency * octShiftFreq[octIdx1 + 2]);
+            sample1 = osc1.sine(frequency * octShiftFreq[octIdx1 + 2] * detune1);
             break;
         case 1:
-            sample1 = osc1.saw(frequency * octShiftFreq[octIdx1 + 2]);
+            sample1 = osc1.saw(frequency * octShiftFreq[octIdx1 + 2] * detune1);
             break;
         case 2:
-            sample1 = osc1.square(frequency * octShiftFreq[octIdx1 + 2]);
+            sample1 = osc1.square(frequency * octShiftFreq[octIdx1 + 2] * detune1);
             break;
         case 3:
-            sample1 = osc1.triangle(frequency * octShiftFreq[octIdx1 + 2]);
+            sample1 = osc1.triangle(frequency * octShiftFreq[octIdx1 + 2] * detune1);
             break;
         default:
-            sample1 = osc1.sine(frequency * octShiftFreq[octIdx1 + 2]);
+            sample1 = osc1.sine(frequency * octShiftFreq[octIdx1 + 2] * detune1);
             break;
         }
 
         switch (osc2Wave) {
         case 0:
-            sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2]);
+            sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
         case 1:
-            sample2 = osc2.saw(frequency * octShiftFreq[octIdx2 + 2]);
+            sample2 = osc2.saw(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
         case 2:
-            sample2 = osc2.square(frequency * octShiftFreq[octIdx2 + 2]);
+            sample2 = osc2.square(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
         case 3:
-            sample2 = osc2.triangle(frequency * octShiftFreq[octIdx2 + 2]);
+            sample2 = osc2.triangle(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
         case 4:
             sample2 = osc2.noise();
             break;
         default:
-            sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2]);
+            sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
         }
         return (1. - oscMix) * sample1 + oscMix * sample2;
-        //return (sample1 * osc1level + sample2 * osc2level) / 2;
     }
-    // ===========================================
+    //  ================= ENVELOPE ==========================
     void getEnvelopeParams(std::atomic<float>* attack, std::atomic<float>* decay, std::atomic<float>* sustain, std::atomic<float>* release) {
         env1.setAttack(*attack);
         env1.setDecay(*decay);
@@ -79,7 +82,7 @@ public:
         env1.sampleRate = getSampleRate();
         return env1.adsr(setOscType(), env1.trigger);
     }
-    // ==========================================
+    // ================== FILTER ========================
     void getFilterParams(std::atomic<float>* filterType, std::atomic<float>* filterCutoff, std::atomic<float>* filterRes, std::atomic<float>* onoff) {
         filterTypeParam = *filterType;
         cutoffParam = *filterCutoff;
@@ -102,12 +105,12 @@ public:
             return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
         }
     }
-    // ===========================================
+    // =================== OTHER ========================
     void getOtherParams(std::atomic<float>* gain) {
         masterGain = *gain;
     }
 
-    // ===========================================
+    // =================== OVERDRIVE ========================
 
     void getODParams(std::atomic<float>* selection, std::atomic<float>* gain, std::atomic<float>* wet) {
         odTypeParam = *selection;
@@ -178,6 +181,7 @@ private:
     double oscMix;    
     int octIdx1, octIdx2;
     float octShiftFreq[5] = { 0.25, 0.5, 1, 2, 4 }; // These are the values used to change OSC2 frequency in setOscType()
+    float detune1, detune2;
 
     // Filter
     int filterTypeParam;                

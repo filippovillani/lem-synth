@@ -4,6 +4,7 @@
 #include "maximilian.h"
 #include "myFilters.h"
 #include "myOSC.h"
+#include "myEnvelope.h"
 
 class SynthVoice : public juce::SynthesiserVoice
 {
@@ -74,6 +75,7 @@ public:
     }
     // ===========================================
     double setEnvelope() {
+        env1.sampleRate = getSampleRate();
         return env1.adsr(setOscType(), env1.trigger);
     }
     // ==========================================
@@ -156,7 +158,7 @@ private:
     float masterGain;
 
     myOsc osc1, osc2;
-    maxiEnv env1;
+    myEnvelope env1;
     myFilter filter;
 
 };

@@ -56,7 +56,7 @@ double myOsc::triangle(double frequency) {
 }
 
 double myOsc::noise() {
-
+    // Box-Muller transform, script from wikipedia
     constexpr double epsilon = std::numeric_limits<double>::epsilon();
 
     //initialize the random uniform number generator (runif) in a range 0 to 1

@@ -30,7 +30,7 @@ Envelope::Envelope(LEMSynthAudioProcessor& p) : audioProcessor(p)
     addAndMakeVisible(&sustainSlider);
 
     decaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
-    decaySlider.setRange(0.1f, 5000.f);
+    decaySlider.setRange(1.f, 5000.f);
     decaySlider.setValue(1.f);
     decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60.0, 20.0);
     //decaySlider.setNumDecimalPlacesToDisplay(1);

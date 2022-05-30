@@ -7,6 +7,10 @@
   <MAINGROUP id="UJBRfe" name="LEMSynth">
     <GROUP id="{CB1C7664-669A-70E3-2DC1-C8832A65936C}" name="Source">
       <GROUP id="{CB390530-4EBA-F84F-53D0-144CB7AF8311}" name="Libraries">
+        <GROUP id="{6E00BC88-AF24-824C-0176-BE32F29317A1}" name="myEnvelope">
+          <FILE id="C4CxFj" name="myEnvelope.cpp" compile="1" resource="0" file="Source/Libraries/myEnvelope/myEnvelope.cpp"/>
+          <FILE id="O08xTF" name="myEnvelope.h" compile="0" resource="0" file="Source/Libraries/myEnvelope/myEnvelope.h"/>
+        </GROUP>
         <GROUP id="{825DCCC8-62DD-4E1D-64A4-98A7FDF1076A}" name="myFilters">
           <FILE id="VWtlds" name="myFilters.cpp" compile="1" resource="0" file="Source/Libraries/myFilters/myFilters.cpp"/>
           <FILE id="nBb9qr" name="myFilters.h" compile="0" resource="0" file="Source/Libraries/myFilters/myFilters.h"/>
@@ -58,7 +62,7 @@
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="LEMSynth" headerPath="D:\Universit&#224;\MAGISTRALE\LEM\Tesina\Libraries\Maximilian&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myFilters&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myOSC"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="LEMSynth" headerPath="D:\Universit&#224;\MAGISTRALE\LEM\Tesina\Libraries\Maximilian&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myFilters&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myOSC&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myEnvelope"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="LEMSynth"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

@@ -150,6 +150,7 @@ void LEMSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
                 apvts.getRawParameterValue("osc1Gain"),
                 apvts.getRawParameterValue("osc2Type"),
                 apvts.getRawParameterValue("osc2Gain"),
+                apvts.getRawParameterValue("oct1"),
                 apvts.getRawParameterValue("oct2"));
 
             myVoice->getEnvelopeParams(
@@ -227,7 +228,8 @@ LEMSynthAudioProcessor::createParameters() {
     params.push_back(std::make_unique<juce::AudioParameterFloat>("osc1Gain", "Osc1 Gain", juce::NormalisableRange<float>(0.f, 1.f, 0.01f), 0.8f));
     params.push_back(std::make_unique<juce::AudioParameterChoice>("osc2Type", "Osc2 Type", juce::StringArray("Sine", "Saw", "Square", "Triangle", "Noise"), 0));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("osc2Gain", "Osc2 Gain", juce::NormalisableRange<float>(0.f, 1.f, 0.01f), 0.8f));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("oct2", "Octave Shift", -2, 2, 0));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("oct1", "Octave Shift 1", -2, 2, 0));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("oct2", "Octave Shift 2", -2, 2, 0));
     // Envelope's parameters
     params.push_back(std::make_unique<juce::AudioParameterFloat>("attack", "Attack", juce::NormalisableRange<float>(5.f, 5000.f, 1.f), 1.f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("decay", "Decay", juce::NormalisableRange<float>(5.f, 5000.f, 1.f), 5.f));

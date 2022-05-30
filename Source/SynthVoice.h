@@ -15,12 +15,14 @@ public:
     }
     // ===========================================
     void getOscParams(std::atomic<float>* selection1, std::atomic<float>* level1,
-        std::atomic<float>* selection2, std::atomic<float>* level2, std::atomic<float>* oct2) {
+        std::atomic<float>* selection2, std::atomic<float>* level2, 
+        std::atomic<float>* oct1, std::atomic<float>* oct2) {
         osc1Wave = *selection1;
         osc1level = *level1;
         osc2Wave = *selection2;
         osc2level = *level2;
-        octIdx = *oct2;
+        octIdx1 = *oct1;
+        octIdx2 = *oct2;
     }
     
     double setOscType() {
@@ -28,40 +30,40 @@ public:
         osc2.sampleRate = getSampleRate();
         switch (osc1Wave) {
         case 0:
-            sample1 = osc1.sine(frequency);
+            sample1 = osc1.sine(frequency * octShiftFreq[octIdx1 + 2]);
             break;
         case 1:
-            sample1 = osc1.saw(frequency);
+            sample1 = osc1.saw(frequency * octShiftFreq[octIdx1 + 2]);
             break;
         case 2:
-            sample1 = osc1.square(frequency);
+            sample1 = osc1.square(frequency * octShiftFreq[octIdx1 + 2]);
             break;
         case 3:
-            sample1 = osc1.triangle(frequency);
+            sample1 = osc1.triangle(frequency * octShiftFreq[octIdx1 + 2]);
             break;
         default:
-            sample1 = osc1.sine(frequency);
+            sample1 = osc1.sine(frequency * octShiftFreq[octIdx1 + 2]);
             break;
         }
 
         switch (osc2Wave) {
         case 0:
-            sample2 = osc2.sine(frequency * octShiftFreq[octIdx + 2]);
+            sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2]);
             break;
         case 1:
-            sample2 = osc2.saw(frequency * octShiftFreq[octIdx + 2]);
+            sample2 = osc2.saw(frequency * octShiftFreq[octIdx2 + 2]);
             break;
         case 2:
-            sample2 = osc2.square(frequency * octShiftFreq[octIdx + 2]);
+            sample2 = osc2.square(frequency * octShiftFreq[octIdx2 + 2]);
             break;
         case 3:
-            sample2 = osc2.triangle(frequency * octShiftFreq[octIdx + 2]);
+            sample2 = osc2.triangle(frequency * octShiftFreq[octIdx2 + 2]);
             break;
         case 4:
             sample2 = osc2.noise();
             break;
         default:
-            sample2 = osc2.sine(frequency * octShiftFreq[octIdx + 2]);
+            sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2]);
             break;
         }
         return (sample1 * osc1level + sample2 * osc2level) / 2;
@@ -175,7 +177,7 @@ private:
     double sample1, sample2;        
     int osc1Wave, osc2Wave;         
     double osc1level, osc2level;    
-    int octIdx;                     
+    int octIdx1, octIdx2;
     float octShiftFreq[5] = { 0.25, 0.5, 1, 2, 4 }; // These are the values used to change OSC2 frequency in setOscType()
 
     // Filter

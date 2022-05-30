@@ -147,9 +147,8 @@ void LEMSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 
             myVoice->getOscParams(
                 apvts.getRawParameterValue("osc1Type"),
-                apvts.getRawParameterValue("osc1Gain"),
+                apvts.getRawParameterValue("oscMix"),
                 apvts.getRawParameterValue("osc2Type"),
-                apvts.getRawParameterValue("osc2Gain"),
                 apvts.getRawParameterValue("oct1"),
                 apvts.getRawParameterValue("oct2"));
 
@@ -225,9 +224,8 @@ LEMSynthAudioProcessor::createParameters() {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
     // Oscillator's parameters
     params.push_back(std::make_unique<juce::AudioParameterChoice>("osc1Type", "Osc1 Type", juce::StringArray("Sine", "Saw", "Square", "Triangle"), 0));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("osc1Gain", "Osc1 Gain", juce::NormalisableRange<float>(0.f, 1.f, 0.01f), 0.8f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("oscMix", "Osc Mix", juce::NormalisableRange<float>(0.f, 100.f, 1.f), 0.f));
     params.push_back(std::make_unique<juce::AudioParameterChoice>("osc2Type", "Osc2 Type", juce::StringArray("Sine", "Saw", "Square", "Triangle", "Noise"), 0));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("osc2Gain", "Osc2 Gain", juce::NormalisableRange<float>(0.f, 1.f, 0.01f), 0.8f));
     params.push_back(std::make_unique<juce::AudioParameterInt>("oct1", "Octave Shift 1", -2, 2, 0));
     params.push_back(std::make_unique<juce::AudioParameterInt>("oct2", "Octave Shift 2", -2, 2, 0));
     // Envelope's parameters

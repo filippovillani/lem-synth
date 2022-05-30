@@ -24,12 +24,12 @@ Oscillator::Oscillator(LEMSynthAudioProcessor& p) :
     osc1Menu.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(&osc1Menu);
 
-    osc1GainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
-    osc1GainSlider.setTextBoxStyle(juce::Slider::TextBoxRight, false, 30, 18);
-    osc1GainSlider.setRange(0.0f, 1.0f);
-    osc1GainSlider.setValue(0.8f);
-    osc1GainSlider.setNumDecimalPlacesToDisplay(2);
-    addAndMakeVisible(&osc1GainSlider);
+    oscMixSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+    oscMixSlider.setTextBoxStyle(juce::Slider::TextBoxRight, false, 30, 18);
+    oscMixSlider.setRange(0.f, 100.f);
+    oscMixSlider.setValue(0.f);
+    oscMixSlider.setNumDecimalPlacesToDisplay(0);
+    addAndMakeVisible(&oscMixSlider);
 
     octShiftSlider1.setSliderStyle(juce::Slider::SliderStyle::IncDecButtons);
     octShiftSlider1.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 38, 25);
@@ -47,13 +47,6 @@ Oscillator::Oscillator(LEMSynthAudioProcessor& p) :
     osc2Menu.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(&osc2Menu);
 
-    osc2GainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
-    osc2GainSlider.setTextBoxStyle(juce::Slider::TextBoxRight, false, 30, 18);
-    osc2GainSlider.setRange(0.0f, 1.0f);
-    osc2GainSlider.setValue(0.8f);
-    osc2GainSlider.setNumDecimalPlacesToDisplay(2);
-    addAndMakeVisible(&osc2GainSlider);
-
     octShiftSlider2.setSliderStyle(juce::Slider::SliderStyle::IncDecButtons);
     octShiftSlider2.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 38, 25);
     octShiftSlider2.setTextValueSuffix(" oct");
@@ -63,9 +56,8 @@ Oscillator::Oscillator(LEMSynthAudioProcessor& p) :
 
     // Attachments
     osc1Choice = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "osc1Type", osc1Menu);
-    osc1GainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "osc1Gain", osc1GainSlider);
+    oscMixAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "oscMix", oscMixSlider);
     osc2Choice = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "osc2Type", osc2Menu);
-    osc2GainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "osc2Gain", osc2GainSlider);
     octShiftAttachment1 = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "oct1", octShiftSlider1);
     octShiftAttachment2 = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "oct2", octShiftSlider2);
 }
@@ -94,9 +86,8 @@ void Oscillator::paint(juce::Graphics& g)
 void Oscillator::resized()
 {
     osc1Menu.setBounds(50, 48, 100, 22);
-    osc1GainSlider.setBounds(50, 75, 100, 20);
+    oscMixSlider.setBounds(50, 75, 100, 20);
     osc2Menu.setBounds(50, 121, 100, 22);
-    osc2GainSlider.setBounds(50, 151, 100, 20);
     octShiftSlider1.setBounds(157, 52, 40, 30);
     octShiftSlider2.setBounds(157, 125, 40, 30);
 }

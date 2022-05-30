@@ -14,13 +14,11 @@ public:
         return dynamic_cast<SynthSound*> (sound) != nullptr;
     }
     // ===========================================
-    void getOscParams(std::atomic<float>* selection1, std::atomic<float>* level1,
-        std::atomic<float>* selection2, std::atomic<float>* level2, 
+    void getOscParams(std::atomic<float>* selection1, std::atomic<float>* mix, std::atomic<float>* selection2,  
         std::atomic<float>* oct1, std::atomic<float>* oct2) {
         osc1Wave = *selection1;
-        osc1level = *level1;
+        oscMix = *mix / 100.;
         osc2Wave = *selection2;
-        osc2level = *level2;
         octIdx1 = *oct1;
         octIdx2 = *oct2;
     }
@@ -66,7 +64,8 @@ public:
             sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2]);
             break;
         }
-        return (sample1 * osc1level + sample2 * osc2level) / 2;
+        return (1. - oscMix) * sample1 + oscMix * sample2;
+        //return (sample1 * osc1level + sample2 * osc2level) / 2;
     }
     // ===========================================
     void getEnvelopeParams(std::atomic<float>* attack, std::atomic<float>* decay, std::atomic<float>* sustain, std::atomic<float>* release) {
@@ -176,7 +175,7 @@ private:
     double frequency, level;        
     double sample1, sample2;        
     int osc1Wave, osc2Wave;         
-    double osc1level, osc2level;    
+    double oscMix;    
     int octIdx1, octIdx2;
     float octShiftFreq[5] = { 0.25, 0.5, 1, 2, 4 }; // These are the values used to change OSC2 frequency in setOscType()
 

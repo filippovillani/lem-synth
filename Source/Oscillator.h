@@ -28,11 +28,11 @@ public:
 
 private:
     juce::ComboBox osc1Menu, osc2Menu;
-    juce::Slider osc1GainSlider, osc2GainSlider;
+    juce::Slider oscMixSlider;
     juce::Slider octShiftSlider1, octShiftSlider2;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> osc1Choice, osc2Choice;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> osc1GainAttachment, osc2GainAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> oscMixAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> octShiftAttachment1, octShiftAttachment2;
 
     LEMSynthAudioProcessor& audioProcessor;

@@ -89,16 +89,16 @@ public:
     double setFilter() {
         filter.sampleRate = getSampleRate();
 
-        if (filterTypeParam == 0) {
+        switch (filterTypeParam) {
+        case 0:
             return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
-        }
-
-        if (filterTypeParam == 1) {
+        case 1:
             return filter.BPF2ord(setEnvelope(), cutoffParam, resonanceParam);
-        }
-
-        if (filterTypeParam == 2) {
+        case 2:
             return filter.HPF2ord(setEnvelope(), cutoffParam, resonanceParam);
+
+        default:
+            return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
         }
     }
     // ===========================================
@@ -108,16 +108,33 @@ public:
 
     // ===========================================
 
-    void getODParams(std::atomic<float>* gain, std::atomic<float>* wet) {
-        odGain = *gain;
-        odWet = *wet;
+    void getODParams(std::atomic<float>* selection, std::atomic<float>* gain, std::atomic<float>* wet) {
+        odTypeParam = *selection;
+        odGain = juce::Decibels::decibelsToGain<float>(*gain);
+        odWet = *wet / 100.;
     }
 
     double setOD() {
-        if (filterBypass)
-            return od.overdrive(setFilter(), odGain, odWet);
-        else
-            return od.overdrive(setEnvelope(), odGain, odWet);
+        switch (odTypeParam) {
+        case 0:
+            if (filterBypass)
+                return od.overdrive(setFilter(), odGain, odWet);
+            else
+                return od.overdrive(setEnvelope(), odGain, odWet);
+
+        case 1:
+            if (filterBypass)
+                return od.distortion(setFilter(), odGain, odWet);
+            else
+                return od.distortion(setEnvelope(), odGain, odWet);
+
+        default:
+            if (filterBypass)
+                return od.overdrive(setFilter(), odGain, odWet);
+            else
+                return od.overdrive(setEnvelope(), odGain, odWet);
+        }
+        
     }
 
     // ===========================================
@@ -147,32 +164,30 @@ public:
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override {
         for (int sample = 0; sample < numSamples; ++sample) {
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
-                //if (filterBypass) {
-                //    outputBuffer.addSample(channel, startSample, setFilter() * juce::Decibels::decibelsToGain<float>(masterGain));
-                //}
-                //else {
-                //    outputBuffer.addSample(channel, startSample, setEnvelope() * juce::Decibels::decibelsToGain<float>(masterGain));
-                //}
                 outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
             }
             ++startSample;
         }
     }
 private:
-    double frequency, level;        // used in setOscType(), defined in startNote()
-    double sample1, sample2;        // used in setOscType()
-    int osc1Wave, osc2Wave;         // used in getOscParams()
-    double osc1level, osc2level;    // used in getOscParams()
-    int octIdx;                     // used in getOscParams()
+    // Oscillator
+    double frequency, level;        
+    double sample1, sample2;        
+    int osc1Wave, osc2Wave;         
+    double osc1level, osc2level;    
+    int octIdx;                     
     float octShiftFreq[5] = { 0.25, 0.5, 1, 2, 4 }; // These are the values used to change OSC2 frequency in setOscType()
 
-    int filterTypeParam;                // used in getFilterParams()
-    float cutoffParam, resonanceParam;  // used in getFilterParams()
-    bool filterBypass;                        // used in getFilterParams()
+    // Filter
+    int filterTypeParam;                
+    float cutoffParam, resonanceParam;  
+    bool filterBypass;                  
+
+    // Overdrive
+    float odGain, odWet;
+    int odTypeParam;
 
     float masterGain;
-    float odGain;
-    float odWet;
 
     myOsc osc1, osc2;
     myEnvelope env1;

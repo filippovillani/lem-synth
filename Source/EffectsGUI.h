@@ -26,11 +26,14 @@ public:
     void resized() override;
 
 private:
-    // DISTORTION SECTION
+    // Distortion section
+    juce::ComboBox odMenu;
+    
     juce::Slider odGainSlider, odWetSlider;
     juce::Label odGainLabel, odWetLabel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> odGainAttachment, odWetAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> odChoice;
 
     LEMSynthAudioProcessor& audioProcessor;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EffectsGUI)

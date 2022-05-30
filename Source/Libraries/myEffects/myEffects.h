@@ -26,5 +26,6 @@ class myODfx {
 
 
 public:
-    double overdrive(double input, double gain, double wet);
+    double overdrive(double input, float gain, float wet);
+    double distortion(double input, float gain, float wet);
 };

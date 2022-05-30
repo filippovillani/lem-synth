@@ -16,11 +16,16 @@ EffectsGUI::EffectsGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
     setSize(200, 200);
 
+    odMenu.addItem("Overdrive", 1);
+    odMenu.addItem("Distortion", 2);
+    odMenu.setJustificationType(juce::Justification::centred);
+    addAndMakeVisible(&odMenu);
+
     odGainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     odGainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 55, 20);
     odGainSlider.setRange(1.f, 10.f);
     odGainSlider.setValue(1.f);
-    odGainSlider.setTextValueSuffix(" eo");
+    odGainSlider.setTextValueSuffix(" dB");
     odGainSlider.setNumDecimalPlacesToDisplay(1);
     addAndMakeVisible(&odGainSlider);
     odGainLabel.setText("Gain", juce::dontSendNotification);
@@ -33,16 +38,16 @@ EffectsGUI::EffectsGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     odWetSlider.setRange(0.f, 1.f);
     odWetSlider.setValue(0.f);
     odWetSlider.setTextValueSuffix(" %");
-    odWetSlider.setNumDecimalPlacesToDisplay(2);
+    odWetSlider.setNumDecimalPlacesToDisplay(0);
     addAndMakeVisible(&odWetSlider);
-    odWetLabel.setText("Gain", juce::dontSendNotification);
+    odWetLabel.setText("Wet", juce::dontSendNotification);
     odWetLabel.attachToComponent(&odWetSlider, false);
     odWetLabel.setJustificationType(juce::Justification::centredTop);
     addAndMakeVisible(&odWetLabel);
 
     odGainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "odGain", odGainSlider);
     odWetAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "odWet", odWetSlider);
-
+    odChoice = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "odType", odMenu);
 
 }
 
@@ -68,6 +73,7 @@ void EffectsGUI::resized()
 {
     juce::Rectangle<int> area = getLocalBounds().reduced(40);
 
+    odMenu.setBounds(area.removeFromTop(20));
     odGainSlider.setBounds(30, 100, 70, 70);
     odWetSlider.setBounds(100, 100, 70, 70);
 

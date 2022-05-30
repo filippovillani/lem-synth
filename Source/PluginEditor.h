@@ -14,6 +14,7 @@
 #include "Envelope.h"
 #include "Filter.h"
 #include "OtherStuff.h"
+#include "EffectsGUI.h"
 
 //==============================================================================
 /**
@@ -37,6 +38,7 @@ private:
     Envelope envGUI;
     Filter filterGUI;
     OtherStuff mainGUI;
+    EffectsGUI effectsGUI;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LEMSynthAudioProcessorEditor)
 };

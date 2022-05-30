@@ -1,10 +1,10 @@
 #pragma once
 #include <JuceHeader.h>
 #include "SynthSound.h"
-#include "maximilian.h"
 #include "myFilters.h"
 #include "myOSC.h"
 #include "myEnvelope.h"
+#include "myEffects.h"
 
 class SynthVoice : public juce::SynthesiserVoice
 {
@@ -22,7 +22,7 @@ public:
         osc2level = *level2;
         octIdx = *oct2;
     }
-    // ===========================================
+    
     double setOscType() {
         osc1.sampleRate = getSampleRate();
         osc2.sampleRate = getSampleRate();
@@ -73,7 +73,7 @@ public:
         env1.setSustain(*sustain);
         env1.setRelease(*release);
     }
-    // ===========================================
+    
     double setEnvelope() {
         env1.sampleRate = getSampleRate();
         return env1.adsr(setOscType(), env1.trigger);
@@ -85,7 +85,6 @@ public:
         resonanceParam = *filterRes;
         filterBypass = *onoff;
     }
-    // ===========================================
 
     double setFilter() {
         filter.sampleRate = getSampleRate();
@@ -108,6 +107,21 @@ public:
     }
 
     // ===========================================
+
+    void getODParams(std::atomic<float>* gain, std::atomic<float>* wet) {
+        odGain = *gain;
+        odWet = *wet;
+    }
+
+    double setOD() {
+        if (filterBypass)
+            return od.overdrive(setFilter(), odGain, odWet);
+        else
+            return od.overdrive(setEnvelope(), odGain, odWet);
+    }
+
+    // ===========================================
+
     void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override {
         env1.trigger = 1;
         level = velocity;
@@ -133,12 +147,13 @@ public:
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override {
         for (int sample = 0; sample < numSamples; ++sample) {
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
-                if (filterBypass) {
-                    outputBuffer.addSample(channel, startSample, setFilter() * juce::Decibels::decibelsToGain<float>(masterGain));
-                }
-                else {
-                    outputBuffer.addSample(channel, startSample, setEnvelope() * juce::Decibels::decibelsToGain<float>(masterGain));
-                }
+                //if (filterBypass) {
+                //    outputBuffer.addSample(channel, startSample, setFilter() * juce::Decibels::decibelsToGain<float>(masterGain));
+                //}
+                //else {
+                //    outputBuffer.addSample(channel, startSample, setEnvelope() * juce::Decibels::decibelsToGain<float>(masterGain));
+                //}
+                outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
             }
             ++startSample;
         }
@@ -156,9 +171,12 @@ private:
     bool filterBypass;                        // used in getFilterParams()
 
     float masterGain;
+    float odGain;
+    float odWet;
 
     myOsc osc1, osc2;
     myEnvelope env1;
     myFilter filter;
+    myODfx od;
 
 };

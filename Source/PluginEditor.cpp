@@ -11,13 +11,14 @@
 
 //==============================================================================
 LEMSynthAudioProcessorEditor::LEMSynthAudioProcessorEditor (LEMSynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), oscGUI(p), envGUI(p), filterGUI(p), mainGUI(p)
+    : AudioProcessorEditor (&p), audioProcessor (p), oscGUI(p), envGUI(p), filterGUI(p), mainGUI(p), effectsGUI(p)
 {
-    setSize(800, 200);
+    setSize(1000, 200);
     addAndMakeVisible(&oscGUI);
     addAndMakeVisible(&envGUI);
     addAndMakeVisible(&filterGUI);
     addAndMakeVisible(&mainGUI);
+    addAndMakeVisible(&effectsGUI);
 }
 
 LEMSynthAudioProcessorEditor::~LEMSynthAudioProcessorEditor()
@@ -44,5 +45,6 @@ void LEMSynthAudioProcessorEditor::resized()
     envGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
     filterGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
     mainGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
+    effectsGUI.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
 
 }

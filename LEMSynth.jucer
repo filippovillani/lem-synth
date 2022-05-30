@@ -7,6 +7,10 @@
   <MAINGROUP id="UJBRfe" name="LEMSynth">
     <GROUP id="{CB1C7664-669A-70E3-2DC1-C8832A65936C}" name="Source">
       <GROUP id="{CB390530-4EBA-F84F-53D0-144CB7AF8311}" name="Libraries">
+        <GROUP id="{DD78AD30-6B86-28D1-ED65-6535AB01C156}" name="myEffects">
+          <FILE id="YYYeYY" name="myEffects.cpp" compile="1" resource="0" file="Source/Libraries/myEffects/myEffects.cpp"/>
+          <FILE id="vdPGXF" name="myEffects.h" compile="0" resource="0" file="Source/Libraries/myEffects/myEffects.h"/>
+        </GROUP>
         <GROUP id="{6E00BC88-AF24-824C-0176-BE32F29317A1}" name="myEnvelope">
           <FILE id="C4CxFj" name="myEnvelope.cpp" compile="1" resource="0" file="Source/Libraries/myEnvelope/myEnvelope.cpp"/>
           <FILE id="O08xTF" name="myEnvelope.h" compile="0" resource="0" file="Source/Libraries/myEnvelope/myEnvelope.h"/>
@@ -20,27 +24,15 @@
           <FILE id="cdEzy7" name="myOSC.h" compile="0" resource="0" file="Source/Libraries/myOSC/myOSC.h"/>
         </GROUP>
       </GROUP>
-      <GROUP id="{E8B6CCF6-7765-657B-A9D8-E1A9DBE87C7A}" name="Maximilian">
-        <FILE id="HB7ECA" name="fft.cpp" compile="1" resource="0" file="../Libraries/Maximilian/fft.cpp"/>
-        <FILE id="WAAWIW" name="fft.h" compile="0" resource="0" file="../Libraries/Maximilian/fft.h"/>
-        <FILE id="P3NY8U" name="maxiAtoms.cpp" compile="1" resource="0" file="../Libraries/Maximilian/maxiAtoms.cpp"/>
-        <FILE id="tZhKFY" name="maxiAtoms.h" compile="0" resource="0" file="../Libraries/Maximilian/maxiAtoms.h"/>
-        <FILE id="GMqKfQ" name="maxiBark.cpp" compile="1" resource="0" file="../Libraries/Maximilian/maxiBark.cpp"/>
-        <FILE id="zkTrY6" name="maxiBark.h" compile="0" resource="0" file="../Libraries/Maximilian/maxiBark.h"/>
-        <FILE id="m47Lc2" name="maxiFFT.cpp" compile="1" resource="0" file="../Libraries/Maximilian/maxiFFT.cpp"/>
-        <FILE id="SUpIPJ" name="maxiFFT.h" compile="0" resource="0" file="../Libraries/Maximilian/maxiFFT.h"/>
-        <FILE id="d0094P" name="maxiGrains.cpp" compile="1" resource="0" file="../Libraries/Maximilian/maxiGrains.cpp"/>
-        <FILE id="RVrbdQ" name="maxiGrains.h" compile="0" resource="0" file="../Libraries/Maximilian/maxiGrains.h"/>
-        <FILE id="gDxGkT" name="maxiMFCC.cpp" compile="1" resource="0" file="../Libraries/Maximilian/maxiMFCC.cpp"/>
-        <FILE id="zWGdmb" name="maxiMFCC.h" compile="0" resource="0" file="../Libraries/Maximilian/maxiMFCC.h"/>
-        <FILE id="NGPpKA" name="maximilian.cpp" compile="1" resource="0" file="../Libraries/Maximilian/maximilian.cpp"/>
-        <FILE id="e4Iyls" name="maximilian.h" compile="0" resource="0" file="../Libraries/Maximilian/maximilian.h"/>
-        <FILE id="dlhp7o" name="sineTable.h" compile="0" resource="0" file="../Libraries/Maximilian/sineTable.h"/>
-        <FILE id="ldmdp8" name="stb_vorbis.c" compile="1" resource="0" file="../Libraries/Maximilian/stb_vorbis.c"/>
-        <FILE id="fFOhix" name="stb_vorbis.h" compile="0" resource="0" file="../Libraries/Maximilian/stb_vorbis.h"/>
-      </GROUP>
       <FILE id="lYVpv2" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
       <FILE id="hmzKBX" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
+      <FILE id="vpFKot" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="igpm95" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="XSBteS" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="yN1zEt" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
       <FILE id="YDTMGJ" name="OtherStuff.cpp" compile="1" resource="0" file="Source/OtherStuff.cpp"/>
       <FILE id="IHSqOW" name="OtherStuff.h" compile="0" resource="0" file="Source/OtherStuff.h"/>
       <FILE id="mvLCoF" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
@@ -49,20 +41,15 @@
       <FILE id="m2nj6i" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
       <FILE id="l6K5fn" name="Envelope.cpp" compile="1" resource="0" file="Source/Envelope.cpp"/>
       <FILE id="rsaRix" name="Envelope.h" compile="0" resource="0" file="Source/Envelope.h"/>
-      <FILE id="vpFKot" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="igpm95" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="XSBteS" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="yN1zEt" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="i8IQRq" name="EffectsGUI.cpp" compile="1" resource="0" file="Source/EffectsGUI.cpp"/>
+      <FILE id="FKAxDE" name="EffectsGUI.h" compile="0" resource="0" file="Source/EffectsGUI.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="LEMSynth" headerPath="D:\Universit&#224;\MAGISTRALE\LEM\Tesina\Libraries\Maximilian&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myFilters&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myOSC&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myEnvelope"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="LEMSynth" headerPath="D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myFilters&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myOSC&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myEnvelope&#10;D:\Universit&#224;\MAGISTRALE\LEM\Tesina\LEMSynth\Source\Libraries\myEffects"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="LEMSynth"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

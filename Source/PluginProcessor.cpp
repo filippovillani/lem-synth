@@ -164,6 +164,10 @@ void LEMSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
                 apvts.getRawParameterValue("resonance"),
                 apvts.getRawParameterValue("filterBypass"));
 
+            myVoice->getODParams(
+                apvts.getRawParameterValue("odGain"),
+                apvts.getRawParameterValue("odWet"));
+
             myVoice->getOtherParams(
                 apvts.getRawParameterValue("masterGain"));
         }
@@ -233,6 +237,9 @@ LEMSynthAudioProcessor::createParameters() {
     params.push_back(std::make_unique<juce::AudioParameterFloat>("cutoff", "CutOff", juce::NormalisableRange<float>(80.f, 20000.f, 1.f, 0.4f), 80.f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("resonance", "Q", juce::NormalisableRange<float>(0.1f, 10.f, 0.1f), 0.707f));
     params.push_back(std::make_unique<juce::AudioParameterBool>("filterBypass", "Filter Bypass", false));
+    // OD's parameters
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("odGain", "OD Gain", juce::NormalisableRange<float>(1.f, 10.f, 0.1f), 1.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("odWet", "OD Wet", juce::NormalisableRange<float>(0.f, 1.f, 0.01f), 0.f));
     // Other parameters
     params.push_back(std::make_unique<juce::AudioParameterFloat>("masterGain", "Master Gain", juce::NormalisableRange<float>(-60.f, 12.f, 0.1f), -6.f));
 

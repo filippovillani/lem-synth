@@ -62,7 +62,7 @@ private:
     juce::Synthesiser mySynth;
     SynthVoice* myVoice;
 
-    int filterChoice;
+    int filterChoice; // DELETE
     double lastSampleRate;
 
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();

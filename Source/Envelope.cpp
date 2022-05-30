@@ -6,20 +6,20 @@ Envelope::Envelope(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
     setSize(200, 200);
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
-    attackSlider.setRange(0.1f, 5000.f);
-    attackSlider.setValue(0.1f);
+    attackSlider.setRange(5.f, 5000.f);
+    attackSlider.setValue(5.f);
     attackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60.0, 20.0);
     //attackSlider.setNumDecimalPlacesToDisplay(1);
     //attackSlider.setTextValueSuffix(" ms");
     addAndMakeVisible(&attackSlider);
 
-    releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
-    releaseSlider.setRange(0.5f, 5000.f);
-    releaseSlider.setValue(0.5f);
-    releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60.0, 20.0);
-    //releaseSlider.setNumDecimalPlacesToDisplay(1);
-    //releaseSlider.setTextValueSuffix(" ms");
-    addAndMakeVisible(&releaseSlider);
+    decaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    decaySlider.setRange(5.f, 5000.f);
+    decaySlider.setValue(5.f);
+    decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60.0, 20.0);
+    //decaySlider.setNumDecimalPlacesToDisplay(1);
+    //decaySlider.setTextValueSuffix(" ms");
+    addAndMakeVisible(&decaySlider);
 
     sustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     sustainSlider.setRange(0.0f, 1.0f);
@@ -29,13 +29,15 @@ Envelope::Envelope(LEMSynthAudioProcessor& p) : audioProcessor(p)
     //sustainSlider.setTextValueSuffix(" ms");
     addAndMakeVisible(&sustainSlider);
 
-    decaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
-    decaySlider.setRange(1.f, 5000.f);
-    decaySlider.setValue(1.f);
-    decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60.0, 20.0);
-    //decaySlider.setNumDecimalPlacesToDisplay(1);
-    //decaySlider.setTextValueSuffix(" ms");
-    addAndMakeVisible(&decaySlider);
+    releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    releaseSlider.setRange(5.f, 5000.f);
+    releaseSlider.setValue(5.f);
+    releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60.0, 20.0);
+    //releaseSlider.setNumDecimalPlacesToDisplay(1);
+    //releaseSlider.setTextValueSuffix(" ms");
+    addAndMakeVisible(&releaseSlider);
+
+
 
     attackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "attack", attackSlider);
     decayAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "decay", decaySlider);

@@ -18,21 +18,10 @@
 
 class myEnvelope {
     double output;
-    float curramp;
+    double input;
+    double curramp;
     double attack, decay, sustain, release;
     int aphase, dphase, sphase, rphase;
-
-
-    double input;
-    //double output;
-    //double attack;
-    //double decay;
-    //double sustain;
-    //double release;
-    double amplitude;
-    long holdtime = 1;
-    long holdcount;
-    int attackphase, decayphase, sustainphase, releasephase;
 
 public:
     int trigger;

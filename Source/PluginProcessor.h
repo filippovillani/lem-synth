@@ -59,10 +59,10 @@ public:
     juce::AudioProcessorValueTreeState apvts;
 
 private:
+    double lastSampleRate;
+
     juce::Synthesiser mySynth;
     SynthVoice* myVoice;
-
-    double lastSampleRate;
 
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
     //==============================================================================

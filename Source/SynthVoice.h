@@ -141,8 +141,23 @@ public:
         
     }
 
-    // ===========================================
+    // =================== MODULATION FX ========================
+    void getMODParams(std::atomic<float>* selection, std::atomic<float>* freq, std::atomic<float>* depth, std::atomic<float>* wet) {
+        modTypeParam = *selection;
+        modFreq = *freq;
+        modDepth = *depth;
+        modWet = *wet / 100.;
+    }
 
+    double setMOD() {
+        modBuffer.clear();
+
+        mod.sampleRate = getSampleRate();
+        // switch(modTypeParam){}
+        mod.flanger(setOD(), modFreq, modDepth, modWet, modBuffer);
+    }
+
+    // ===========================================
     void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override {
         env1.trigger = 1;
         level = velocity;
@@ -165,9 +180,29 @@ public:
 
     }
     // ===========================================
+
+    void writeToBuffer(juce::AudioSampleBuffer& sourceBuffer, juce::AudioSampleBuffer& destBuffer,
+                        const int channel, const int writePos, float startGain, float endGain) {
+
+        if (writePos + sourceBuffer.getNumSamples() <= destBuffer.getNumSamples()) {
+            destBuffer.copyFromWithRamp(channel, writePos, sourceBuffer.getReadPointer(channel), sourceBuffer.getNumSamples(), startGain, endGain);
+        }
+        else {
+            const auto midPosition = destBuffer.getNumSamples() - writePos; // this is where we start
+            const auto midGain = juce::jmap(float(midPosition) / sourceBuffer.getNumSamples(), startGain, endGain);
+
+            destBuffer.copyFromWithRamp(channel, writePos, sourceBuffer.getReadPointer(channel), midPosition, startGain, midGain);
+            destBuffer.copyFromWithRamp(channel, 0, sourceBuffer.getReadPointer(channel, midPosition), sourceBuffer.getNumSamples() - midPosition, midGain, endGain);
+        }
+    }
+
+    // =================== PROCESSING ========================
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override {
         for (int sample = 0; sample < numSamples; ++sample) {
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
+                // COPIA I CAMPIONI IN modBuffer
+
+
                 outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
             }
             ++startSample;
@@ -192,11 +227,18 @@ private:
     float odGain, odWet;
     int odTypeParam;
 
+    // Modulation
+    float modFreq, modDepth, modWet;
+    int modTypeParam;
+
     float masterGain;
+
+    juce::AudioBuffer<float> modBuffer;
 
     myOsc osc1, osc2;
     myEnvelope env1;
     myFilter filter;
     myODfx od;
+    myMODfx mod;
 
 };

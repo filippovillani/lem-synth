@@ -50,3 +50,10 @@ double myODfx::distortion(double input, float gain, float wet) {
 
     return (1. - wet) * input + wet * output;
 }
+
+double myMODfx::flanger(double input, float freq, float depth, float wet, juce::AudioBuffer<float> buffer) {
+    wet = double(wet);
+
+
+    return (1. - wet) * input + wet * output;
+}

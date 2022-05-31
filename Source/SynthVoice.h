@@ -2,10 +2,7 @@
 #include <JuceHeader.h>
 #include <cmath>
 #include "SynthSound.h"
-#include "myFilters.h"
-#include "myOSC.h"
-#include "myEnvelope.h"
-#include "myEffects.h"
+#include "myAudioLibrary.h"
 
 class SynthVoice : public juce::SynthesiserVoice
 {

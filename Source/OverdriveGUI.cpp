@@ -9,10 +9,10 @@
 */
 
 #include <JuceHeader.h>
-#include "EffectsGUI.h"
+#include "OverdriveGUI.h"
 
 //==============================================================================
-EffectsGUI::EffectsGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
+OverdriveGUI::OverdriveGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
     setSize(200, 200);
 
@@ -51,11 +51,11 @@ EffectsGUI::EffectsGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 
 }
 
-EffectsGUI::~EffectsGUI()
+OverdriveGUI::~OverdriveGUI()
 {
 }
 
-void EffectsGUI::paint (juce::Graphics& g)
+void OverdriveGUI::paint (juce::Graphics& g)
 {
     juce::Rectangle<int> titleArea(0, 10, getWidth(), 20);
 
@@ -69,7 +69,7 @@ void EffectsGUI::paint (juce::Graphics& g)
     g.drawRoundedRectangle(area, 20.0f, 2.0f);
 }
 
-void EffectsGUI::resized()
+void OverdriveGUI::resized()
 {
     juce::Rectangle<int> area = getLocalBounds().reduced(40);
 

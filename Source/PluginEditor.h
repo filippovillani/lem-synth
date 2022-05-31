@@ -10,11 +10,12 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "Oscillator.h"
-#include "Envelope.h"
-#include "Filter.h"
-#include "OtherStuff.h"
-#include "EffectsGUI.h"
+#include "OscillatorGUI.h"
+#include "EnvelopeGUI.h"
+#include "FilterGUI.h"
+#include "OverdriveGUI.h"
+#include "MasterGUI.h"
+#include "NoiseGUI.h"
 
 //==============================================================================
 /**
@@ -34,11 +35,13 @@ private:
     // access the processor object that created it.
     LEMSynthAudioProcessor& audioProcessor;
 
-    Oscillator oscGUI;
-    Envelope envGUI;
-    Filter filterGUI;
-    OtherStuff mainGUI;
-    EffectsGUI effectsGUI;
+    OscillatorGUI oscGUI;
+    EnvelopeGUI envGUI;
+    OverdriveGUI odGUI;
+    NoiseGUI noiseGUI;
+    FilterGUI filterGUI;
+    MasterGUI mtGUI;
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LEMSynthAudioProcessorEditor)
 };

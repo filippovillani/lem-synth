@@ -16,17 +16,16 @@
 //==============================================================================
 /*
 */
-class EffectsGUI  : public juce::Component
+class OverdriveGUI : public juce::Component
 {
 public:
-    EffectsGUI(LEMSynthAudioProcessor&);
-    ~EffectsGUI() override;
+    OverdriveGUI(LEMSynthAudioProcessor&);
+    ~OverdriveGUI() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    // Distortion section
     juce::ComboBox odMenu;
     
     juce::Slider odGainSlider, odWetSlider;
@@ -36,5 +35,5 @@ private:
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> odChoice;
 
     LEMSynthAudioProcessor& audioProcessor;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EffectsGUI)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OverdriveGUI)
 };

@@ -9,10 +9,10 @@
 */
 
 #include <JuceHeader.h>
-#include "Oscillator.h"
+#include "OscillatorGUI.h"
 
 //==============================================================================
-Oscillator::Oscillator(LEMSynthAudioProcessor& p) :
+OscillatorGUI::OscillatorGUI(LEMSynthAudioProcessor& p) :
     audioProcessor(p)
 {
     setSize(300, 200);
@@ -80,11 +80,11 @@ Oscillator::Oscillator(LEMSynthAudioProcessor& p) :
     detuneAttachment2 = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "detune2", detuneSlider2);
 }
 
-Oscillator::~Oscillator()
+OscillatorGUI::~OscillatorGUI()
 {
 }
 
-void Oscillator::paint(juce::Graphics& g)
+void OscillatorGUI::paint(juce::Graphics& g)
 {
     juce::Rectangle<int> titleArea(0, 10, getWidth(), 20);
 
@@ -101,7 +101,7 @@ void Oscillator::paint(juce::Graphics& g)
     g.drawRoundedRectangle(area, 20.0f, 2.0f);
 }
 
-void Oscillator::resized()
+void OscillatorGUI::resized()
 {
     osc1Menu.setBounds(50, 48, 100, 22);
     oscMixSlider.setBounds(50, 75, 100, 20);

@@ -19,16 +19,20 @@
             file="Source/myAudioLibrary.cpp"/>
       <FILE id="WyhyiR" name="myAudioLibrary.h" compile="0" resource="0"
             file="Source/myAudioLibrary.h"/>
-      <FILE id="YDTMGJ" name="OtherStuff.cpp" compile="1" resource="0" file="Source/OtherStuff.cpp"/>
-      <FILE id="IHSqOW" name="OtherStuff.h" compile="0" resource="0" file="Source/OtherStuff.h"/>
-      <FILE id="mvLCoF" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
-      <FILE id="RFW54Z" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
-      <FILE id="h9yy9i" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
-      <FILE id="m2nj6i" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
-      <FILE id="l6K5fn" name="Envelope.cpp" compile="1" resource="0" file="Source/Envelope.cpp"/>
-      <FILE id="rsaRix" name="Envelope.h" compile="0" resource="0" file="Source/Envelope.h"/>
-      <FILE id="i8IQRq" name="EffectsGUI.cpp" compile="1" resource="0" file="Source/EffectsGUI.cpp"/>
-      <FILE id="FKAxDE" name="EffectsGUI.h" compile="0" resource="0" file="Source/EffectsGUI.h"/>
+      <FILE id="mvLCoF" name="OscillatorGUI.cpp" compile="1" resource="0"
+            file="Source/OscillatorGUI.cpp"/>
+      <FILE id="RFW54Z" name="OscillatorGUI.h" compile="0" resource="0" file="Source/OscillatorGUI.h"/>
+      <FILE id="l6K5fn" name="EnvelopeGUI.cpp" compile="1" resource="0" file="Source/EnvelopeGUI.cpp"/>
+      <FILE id="rsaRix" name="EnvelopeGUI.h" compile="0" resource="0" file="Source/EnvelopeGUI.h"/>
+      <FILE id="i8IQRq" name="OverdriveGUI.cpp" compile="1" resource="0"
+            file="Source/OverdriveGUI.cpp"/>
+      <FILE id="FKAxDE" name="OverdriveGUI.h" compile="0" resource="0" file="Source/OverdriveGUI.h"/>
+      <FILE id="xiokJG" name="NoiseGUI.cpp" compile="1" resource="0" file="Source/NoiseGUI.cpp"/>
+      <FILE id="bLhCV0" name="NoiseGUI.h" compile="0" resource="0" file="Source/NoiseGUI.h"/>
+      <FILE id="h9yy9i" name="FilterGUI.cpp" compile="1" resource="0" file="Source/FilterGUI.cpp"/>
+      <FILE id="m2nj6i" name="FilterGUI.h" compile="0" resource="0" file="Source/FilterGUI.h"/>
+      <FILE id="A5ygqp" name="MasterGUI.cpp" compile="1" resource="0" file="Source/MasterGUI.cpp"/>
+      <FILE id="Sflik7" name="MasterGUI.h" compile="0" resource="0" file="Source/MasterGUI.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

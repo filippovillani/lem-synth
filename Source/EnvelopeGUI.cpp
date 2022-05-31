@@ -1,8 +1,8 @@
 #include <JuceHeader.h>
-#include "Envelope.h"
+#include "EnvelopeGUI.h"
 
 //==============================================================================
-Envelope::Envelope(LEMSynthAudioProcessor& p) : audioProcessor(p)
+EnvelopeGUI::EnvelopeGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
     setSize(200, 200);
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
@@ -46,11 +46,11 @@ Envelope::Envelope(LEMSynthAudioProcessor& p) : audioProcessor(p)
 
 }
 
-Envelope::~Envelope()
+EnvelopeGUI::~EnvelopeGUI()
 {
 }
 
-void Envelope::paint(juce::Graphics& g)
+void EnvelopeGUI::paint(juce::Graphics& g)
 {
     juce::Rectangle<int> titleArea(0, 10, getWidth(), 20);
 
@@ -80,7 +80,7 @@ void Envelope::paint(juce::Graphics& g)
 
 }
 
-void Envelope::resized()
+void EnvelopeGUI::resized()
 {
     juce::Rectangle<int> area = getLocalBounds().reduced(50);
 

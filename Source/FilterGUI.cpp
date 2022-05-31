@@ -10,10 +10,10 @@
 
 
 #include <JuceHeader.h>
-#include "Filter.h"
+#include "FilterGUI.h"
 
 //==============================================================================
-Filter::Filter(LEMSynthAudioProcessor& p) : audioProcessor(p)
+FilterGUI::FilterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
     setSize(200, 200);
 
@@ -60,11 +60,11 @@ Filter::Filter(LEMSynthAudioProcessor& p) : audioProcessor(p)
 
 }
 
-Filter::~Filter()
+FilterGUI::~FilterGUI()
 {
 }
 
-void Filter::paint(juce::Graphics& g)
+void FilterGUI::paint(juce::Graphics& g)
 {
     juce::Rectangle<int> titleArea(0, 10, getWidth(), 20);
 
@@ -79,7 +79,7 @@ void Filter::paint(juce::Graphics& g)
 }
 
 
-void Filter::resized()
+void FilterGUI::resized()
 {
     juce::Rectangle<int> area = getLocalBounds().reduced(40);
 

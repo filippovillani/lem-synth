@@ -17,11 +17,11 @@
 //==============================================================================
 /*
 */
-class Filter : public juce::Component
+class FilterGUI : public juce::Component
 {
 public:
-    Filter(LEMSynthAudioProcessor&);
-    ~Filter() override;
+    FilterGUI(LEMSynthAudioProcessor&);
+    ~FilterGUI() override;
 
     void paint(juce::Graphics&) override;
     void resized() override;
@@ -37,5 +37,5 @@ private:
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> bypassAttachment;
 
     LEMSynthAudioProcessor& audioProcessor;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Filter)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FilterGUI)
 };

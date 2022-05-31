@@ -141,7 +141,7 @@ public:
         
     }
 
-    // ===========================================
+    // =============== MIDI MESSAGES ============================
 
     void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override {
         env1.trigger = 1;
@@ -164,7 +164,7 @@ public:
     void controllerMoved(int controllerNumber, int newControllerValue) {
 
     }
-    // ===========================================
+    // =================== PROCESSING ========================
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override {
         for (int sample = 0; sample < numSamples; ++sample) {
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {

@@ -22,11 +22,6 @@ MasterGUI::MasterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     masterSlider.setTextValueSuffix(" dB");
     masterSlider.setNumDecimalPlacesToDisplay(1);
     addAndMakeVisible(&masterSlider);
-    masterLabel.setText("Master Gain", juce::dontSendNotification);
-    masterLabel.attachToComponent(&masterSlider, false);
-    masterLabel.setJustificationType(juce::Justification::centredTop);
-    masterLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
-    addAndMakeVisible(&masterLabel);
 
     masterAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "masterGain", masterSlider);
 
@@ -51,8 +46,13 @@ void MasterGUI::paint (juce::Graphics& g)
     g.drawLine(0., 0., 0., 220., 1.5);
     g.drawLine(250., 0., 250., 220., 2.);
 
+    g.setFont(18.);
+    g.drawText("MASTER GAIN", 50, 15, 150, 25, juce::Justification::centredTop);
+
     g.setFont(26.);
-    g.drawText("LEMSynth", 25, 170, 200, 35, juce::Justification::centredTop);
+    g.drawText("LEMSynth", 25, 165, 200, 35, juce::Justification::centredTop);
+    g.setFont(10.);
+    g.drawText("Filippo Villani", 25, 200, 200, 15, juce::Justification::centredRight);
 }
 
 void MasterGUI::resized()

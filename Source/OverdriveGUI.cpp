@@ -62,7 +62,7 @@ void OverdriveGUI::paint (juce::Graphics& g)
     g.fillAll(juce::Colours::black);
     g.setColour(juce::Colours::orange);
     g.setFont(18.);
-    g.drawText("Overdrive", 82, 20, 100, 25, juce::Justification::centredTop);
+    g.drawText("OVERDRIVE", 82, 15, 100, 25, juce::Justification::centredTop);
 
     // Horizontal lines
     g.drawLine(0., 0., 250., 0., 1.5);

@@ -14,7 +14,7 @@
 //==============================================================================
 MasterGUI::MasterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
-    setSize(100, 200);
+    setSize(250, 220);
     masterSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     masterSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
     masterSlider.setRange(-60.f, 12.f);

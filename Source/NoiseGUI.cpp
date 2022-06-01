@@ -14,8 +14,7 @@
 //==============================================================================
 NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+    setSize(250, 220);
 
 }
 

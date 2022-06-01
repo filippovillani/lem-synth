@@ -15,7 +15,7 @@
 //==============================================================================
 FilterGUI::FilterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
-    setSize(200, 200);
+    setSize(250, 220);
 
     filterMenu.addItem("LPF", 1);
     filterMenu.addItem("BPF", 2);

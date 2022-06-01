@@ -14,7 +14,7 @@
 //==============================================================================
 OverdriveGUI::OverdriveGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
-    setSize(200, 200);
+    setSize(250, 220);
 
     odMenu.addItem("Overdrive", 1);
     odMenu.addItem("Distortion", 2);

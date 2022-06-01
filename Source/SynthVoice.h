@@ -58,9 +58,6 @@ public:
         case 3:
             sample2 = osc2.triangle(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
-        case 4:
-            sample2 = osc2.noise();
-            break;
         default:
             sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;

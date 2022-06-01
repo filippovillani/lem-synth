@@ -27,10 +27,15 @@ public:
     void resized() override;
 
 private:
+
     juce::ComboBox osc1Menu, osc2Menu;
     juce::Slider oscMixSlider;
     juce::Slider octShiftSlider1, octShiftSlider2;
     juce::Slider detuneSlider1, detuneSlider2;
+
+    juce::Label detuneLabel1, detuneLabel2,
+        octLabel1, octLabel2,
+        oscMixLabel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> osc1Choice, osc2Choice;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> oscMixAttachment;

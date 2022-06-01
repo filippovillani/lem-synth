@@ -4,7 +4,7 @@
 //==============================================================================
 EnvelopeGUI::EnvelopeGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
-    setSize(200, 200);
+    setSize(500, 220);
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     attackSlider.setRange(5.f, 5000.f);
     attackSlider.setValue(5.f);

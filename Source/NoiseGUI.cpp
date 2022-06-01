@@ -90,7 +90,7 @@ NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     gainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "noiseGain", gainSlider);
     levelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "noiseLevel", levelSlider);
     bypassAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts, "noiseBypass", bypassButton);
-    filterBypassAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts, "noiseBypass", filterBypassButton);
+    filterBypassAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts, "noiseFilterBypass", filterBypassButton);
 }
 
 NoiseGUI::~NoiseGUI()

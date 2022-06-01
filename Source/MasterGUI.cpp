@@ -15,13 +15,18 @@
 MasterGUI::MasterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
     setSize(250, 220);
-    masterSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
-    masterSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+    masterSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    masterSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 60, 22);
     masterSlider.setRange(-60.f, 12.f);
     masterSlider.setValue(-6.f);
     masterSlider.setTextValueSuffix(" dB");
     masterSlider.setNumDecimalPlacesToDisplay(1);
     addAndMakeVisible(&masterSlider);
+    masterLabel.setText("Master Gain", juce::dontSendNotification);
+    masterLabel.attachToComponent(&masterSlider, false);
+    masterLabel.setJustificationType(juce::Justification::centredTop);
+    masterLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
+    addAndMakeVisible(&masterLabel);
 
     masterAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "masterGain", masterSlider);
 
@@ -36,21 +41,21 @@ void MasterGUI::paint (juce::Graphics& g)
     juce::Rectangle<int> titleArea(38, 10, 50, 20);
 
     g.fillAll(juce::Colours::black);
-    g.setColour(juce::Colours::white);
-    g.drawText("Master", titleArea, juce::Justification::centredTop);
+    g.setColour(juce::Colours::orange);
 
-    g.drawText("Gain", 35, 40, 55, 20, juce::Justification::centredTop);
+    // Horizontal lines
+    g.drawLine(0., 0., 250., 0., 1.5);
+    g.drawLine(0., 220., 250., 220., 3.);
+    g.drawLine(0., 150., 250., 150., 3.);
+    // Vertical lines
+    g.drawLine(0., 0., 0., 220., 1.5);
+    g.drawLine(250., 0., 250., 220., 2.);
 
-    g.setColour(juce::Colours::yellow);
-    g.drawRoundedRectangle(25, 25, 75, 150, 20.f, 2.f);
+    g.setFont(26.);
+    g.drawText("LEMSynth", 25, 170, 200, 35, juce::Justification::centredTop);
 }
 
 void MasterGUI::resized()
 {
-    juce::Rectangle<int> area = getLocalBounds().reduced(40);
-
-    int sliderWidth = 48;
-    int sliderHeight = 175;
-
-    masterSlider.setBounds(area.removeFromLeft(sliderWidth).removeFromTop(sliderHeight).withTrimmedTop(10));
+    masterSlider.setBounds(65, 30, 120, 100);
 }

@@ -26,7 +26,7 @@ public:
 
 private:
     juce::Slider masterSlider;
-
+    juce::Label masterLabel;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> masterAttachment;
 
     LEMSynthAudioProcessor& audioProcessor;

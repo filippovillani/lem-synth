@@ -102,6 +102,6 @@ void FilterGUI::resized()
     cutoffSlider.setBounds(20, 130, 70, 70);
     resonanceSlider.setBounds(93, 130, 70, 70);
     gainSlider.setBounds(166, 130, 70, 70);
-    bypassButton.setBounds(10, 10, 30, 30);
+    bypassButton.setBounds(7, 10, 30, 30);
 }
 

@@ -28,12 +28,12 @@ public:
 private:
     juce::ComboBox filterMenu;
     juce::Slider cutoffSlider, resonanceSlider, gainSlider, levelSlider;
-    juce::ToggleButton bypassButton;
+    juce::ToggleButton bypassButton, filterBypassButton;
     juce::Label cutoffLabel, resonanceLabel, gainLabel, levelLabel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> filterChoice;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffAttachment, resonanceAttachment, gainAttachment, levelAttachment;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> bypassAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> bypassAttachment, filterBypassAttachment;
 
     LEMSynthAudioProcessor& audioProcessor;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NoiseGUI)

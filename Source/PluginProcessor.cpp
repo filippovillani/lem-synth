@@ -178,7 +178,8 @@ void LEMSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
                 apvts.getRawParameterValue("noiseFreq"),
                 apvts.getRawParameterValue("noiseQ"),
                 apvts.getRawParameterValue("noiseGain"),
-                apvts.getRawParameterValue("noiseBypass"));
+                apvts.getRawParameterValue("noiseBypass"),
+                apvts.getRawParameterValue("noiseFilterBypass"));
             
             myVoice->getOtherParams(
                 apvts.getRawParameterValue("masterGain"));
@@ -263,6 +264,7 @@ LEMSynthAudioProcessor::createParameters() {
     params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseQ", "Noise Q", juce::NormalisableRange<float>(0.1f, 10.f, 0.1f), 0.707f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseGain", "Noise Gain", juce::NormalisableRange<float>(-60.f, 18.f, 0.1f), 0.f));
     params.push_back(std::make_unique<juce::AudioParameterBool>("noiseBypass", "Noise Bypass", false));
+    params.push_back(std::make_unique<juce::AudioParameterBool>("noiseFilterBypass", "Noise Filter Bypass", false));
     // Other parameters
     params.push_back(std::make_unique<juce::AudioParameterFloat>("masterGain", "Master Gain", juce::NormalisableRange<float>(-60.f, 12.f, 0.1f), -6.f));
     

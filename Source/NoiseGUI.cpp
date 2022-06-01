@@ -74,10 +74,15 @@ NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     levelLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
     addAndMakeVisible(&levelLabel);
 
-    bypassButton.setColour(juce::TextButton::buttonColourId, juce::Colours::red);
-    bypassButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::green);
+    //bypassButton.setColour(juce::TextButton::buttonColourId, juce::Colours::red);
+    //bypassButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::green);
     bypassButton.setClickingTogglesState(true);
     addAndMakeVisible(&bypassButton);
+
+    //bypassButton.setColour(juce::TextButton::buttonColourId, juce::Colours::red);
+    //bypassButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::green);
+    filterBypassButton.setClickingTogglesState(true);
+    addAndMakeVisible(&filterBypassButton);
 
     filterChoice = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "noiseType", filterMenu);
     cutoffAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "noiseFreq", cutoffSlider);
@@ -85,6 +90,7 @@ NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     gainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "noiseGain", gainSlider);
     levelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "noiseLevel", levelSlider);
     bypassAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts, "noiseBypass", bypassButton);
+    filterBypassAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts, "noiseBypass", filterBypassButton);
 }
 
 NoiseGUI::~NoiseGUI()
@@ -97,6 +103,9 @@ void NoiseGUI::paint (juce::Graphics& g)
     g.setColour(juce::Colours::orange);
     g.setFont(18.);
     g.drawText("NOISE", 82, 15, 100, 25, juce::Justification::centredTop);
+
+    g.setFont(12.);
+    g.drawText("Filter", 7, 70, 30, 15, juce::Justification::centredLeft);
 
     // Horizontal lines
     g.drawLine(0., 0., 250., 0., 1.5);
@@ -113,6 +122,7 @@ void NoiseGUI::resized()
     resonanceSlider.setBounds(93, 130, 70, 70);
     gainSlider.setBounds(166, 130, 70, 70);
     levelSlider.setBounds(166, 25, 70, 70);
-    bypassButton.setBounds(10, 10, 30, 30);
+    bypassButton.setBounds(7, 10, 30, 30);
+    filterBypassButton.setBounds(7, 40, 30, 30);
 
 }

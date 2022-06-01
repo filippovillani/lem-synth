@@ -139,27 +139,32 @@ public:
 
     // =================== NOISE GENERATOR ========================
     void getNoiseParams(std::atomic<float>* selection, std::atomic<float>* level, std::atomic<float>* freq, std::atomic<float>* Q, 
-        std::atomic<float>* gain, std::atomic<float>* onoff) {
+        std::atomic<float>* gain, std::atomic<float>* onoff, std::atomic<float>* onoffFilter) {
         noiseFilterTypeParam = *selection;
         noiseLevelParam = *level;
         noiseFreqParam = *freq;
         noiseQParam = *Q;
         noiseGainParam = *gain;
         noiseBypass = *onoff;
+        noiseFilterBypass = *onoffFilter;
     }
 
     double setNoise() {
         noiseFilter.sampleRate = getSampleRate();
-        switch (noiseFilterTypeParam) {
-        case 0:
-            return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
-        case 1:
-            return noiseFilter.BPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
-        case 2:
-            return noiseFilter.HPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
-        default:
-            return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+        if (noiseFilterBypass) {
+            switch (noiseFilterTypeParam) {
+            case 0:
+                return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            case 1:
+                return noiseFilter.BPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            case 2:
+                return noiseFilter.HPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            default:
+                return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            }
         }
+        else 
+            return noiseOsc.noise();       
     }
   
 
@@ -222,7 +227,7 @@ private:
     // Noise Generator
     float noiseFreqParam, noiseQParam, noiseGainParam, noiseLevelParam;
     int noiseFilterTypeParam;
-    bool noiseBypass;
+    bool noiseBypass, noiseFilterBypass;
 
     // Master
     float masterGain;

@@ -41,10 +41,10 @@ void MasterGUI::paint (juce::Graphics& g)
     // Horizontal lines
     g.drawLine(0., 0., 250., 0., 1.5);
     g.drawLine(0., 220., 250., 220., 3.);
-    g.drawLine(0., 150., 250., 150., 3.);
+    g.drawLine(0., 150., 250., 150., 1.5);
     // Vertical lines
     g.drawLine(0., 0., 0., 220., 1.5);
-    g.drawLine(250., 0., 250., 220., 2.);
+    g.drawLine(250., 0., 250., 220., 3.);
 
     g.setFont(18.);
     g.drawText("MASTER GAIN", 50, 15, 150, 25, juce::Justification::centredTop);

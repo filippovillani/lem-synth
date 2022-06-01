@@ -31,6 +31,7 @@ OverdriveGUI::OverdriveGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     odGainLabel.setText("Gain", juce::dontSendNotification);
     odGainLabel.attachToComponent(&odGainSlider, false);
     odGainLabel.setJustificationType(juce::Justification::centredTop);
+    odGainLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
     addAndMakeVisible(&odGainLabel);
 
     odWetSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
@@ -43,6 +44,7 @@ OverdriveGUI::OverdriveGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     odWetLabel.setText("Wet", juce::dontSendNotification);
     odWetLabel.attachToComponent(&odWetSlider, false);
     odWetLabel.setJustificationType(juce::Justification::centredTop);
+    odWetLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
     addAndMakeVisible(&odWetLabel);
 
     odGainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "odGain", odGainSlider);
@@ -60,21 +62,23 @@ void OverdriveGUI::paint (juce::Graphics& g)
     juce::Rectangle<int> titleArea(0, 10, getWidth(), 20);
 
     g.fillAll(juce::Colours::black);
-    g.setColour(juce::Colours::white);
-    g.drawText("OD", titleArea, juce::Justification::centredTop);
+    g.setColour(juce::Colours::orange);
+    g.setFont(18.);
+    g.drawText("Overdrive", 82, 20, 100, 25, juce::Justification::centredTop);
 
-    juce::Rectangle <float> area(25, 25, 150, 150);
-
-    g.setColour(juce::Colours::yellow);
-    g.drawRoundedRectangle(area, 20.0f, 2.0f);
+    // Horizontal lines
+    g.drawLine(0., 0., 250., 0., 1.5);
+    g.drawLine(0., 220., 250., 220., 3.);
+    // Vertical lines
+    g.drawLine(0., 0., 0., 220., 3.);
+    g.drawLine(250., 0., 250., 220., 1.5);
+    
 }
 
 void OverdriveGUI::resized()
 {
-    juce::Rectangle<int> area = getLocalBounds().reduced(40);
-
-    odMenu.setBounds(area.removeFromTop(20));
-    odGainSlider.setBounds(30, 100, 70, 70);
-    odWetSlider.setBounds(100, 100, 70, 70);
+    odMenu.setBounds(25, 45, 200, 25);
+    odGainSlider.setBounds(30, 120, 80, 80);
+    odWetSlider.setBounds(140, 120, 80, 80);
 
 }

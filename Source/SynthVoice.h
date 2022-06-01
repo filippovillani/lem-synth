@@ -2,10 +2,7 @@
 #include <JuceHeader.h>
 #include <cmath>
 #include "SynthSound.h"
-#include "myFilters.h"
-#include "myOSC.h"
-#include "myEnvelope.h"
-#include "myEffects.h"
+#include "myAudioLibrary.h"
 
 class SynthVoice : public juce::SynthesiserVoice
 {
@@ -61,9 +58,6 @@ public:
         case 3:
             sample2 = osc2.triangle(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
-        case 4:
-            sample2 = osc2.noise();
-            break;
         default:
             sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
@@ -83,10 +77,12 @@ public:
         return env1.adsr(setOscType(), env1.trigger);
     }
     // ================== FILTER ========================
-    void getFilterParams(std::atomic<float>* filterType, std::atomic<float>* filterCutoff, std::atomic<float>* filterRes, std::atomic<float>* onoff) {
+    void getFilterParams(std::atomic<float>* filterType, std::atomic<float>* filterCutoff, std::atomic<float>* filterRes, 
+        std::atomic<float>* filterGain, std::atomic<float>* onoff) {
         filterTypeParam = *filterType;
         cutoffParam = *filterCutoff;
         resonanceParam = *filterRes;
+        filterGainParam = *filterGain;
         filterBypass = *onoff;
     }
 
@@ -141,6 +137,7 @@ public:
         
     }
 
+<<<<<<< HEAD
     // =================== MODULATION FX ========================
     void getMODParams(std::atomic<float>* selection, std::atomic<float>* freq, std::atomic<float>* depth, std::atomic<float>* wet) {
         modTypeParam = *selection;
@@ -156,6 +153,40 @@ public:
         // switch(modTypeParam){}
         mod.flanger(setOD(), modFreq, modDepth, modWet, modBuffer);
     }
+=======
+    // =================== NOISE GENERATOR ========================
+    void getNoiseParams(std::atomic<float>* selection, std::atomic<float>* level, std::atomic<float>* freq, std::atomic<float>* Q, 
+        std::atomic<float>* gain, std::atomic<float>* onoff, std::atomic<float>* onoffFilter) {
+        noiseFilterTypeParam = *selection;
+        noiseLevelParam = *level;
+        noiseFreqParam = *freq;
+        noiseQParam = *Q;
+        noiseGainParam = *gain;
+        noiseBypass = *onoff;
+        noiseFilterBypass = *onoffFilter;
+    }
+
+    double setNoise() {
+        noiseFilter.sampleRate = getSampleRate();
+        if (noiseFilterBypass) {
+            switch (noiseFilterTypeParam) {
+            case 0:
+                return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            case 1:
+                return noiseFilter.BPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            case 2:
+                return noiseFilter.HPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            default:
+                return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            }
+        }
+        else 
+            return noiseOsc.noise();       
+    }
+  
+
+    // =============== MIDI MESSAGES ============================
+>>>>>>> newGUI
 
     // ===========================================
     void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override {
@@ -179,6 +210,7 @@ public:
     void controllerMoved(int controllerNumber, int newControllerValue) {
 
     }
+<<<<<<< HEAD
     // ===========================================
 
     void writeToBuffer(juce::AudioSampleBuffer& sourceBuffer, juce::AudioSampleBuffer& destBuffer,
@@ -196,14 +228,25 @@ public:
         }
     }
 
+=======
+>>>>>>> newGUI
     // =================== PROCESSING ========================
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override {
         for (int sample = 0; sample < numSamples; ++sample) {
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
+<<<<<<< HEAD
                 // COPIA I CAMPIONI IN modBuffer
 
 
                 outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
+=======
+                if (noiseBypass)
+                    outputBuffer.addSample(channel, startSample,
+                        setOD() * juce::Decibels::decibelsToGain<float>(masterGain) + setNoise() * juce::Decibels::decibelsToGain<float>(noiseLevelParam));
+                else
+                    outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
+                    
+>>>>>>> newGUI
             }
             ++startSample;
         }
@@ -220,13 +263,14 @@ private:
 
     // Filter
     int filterTypeParam;                
-    float cutoffParam, resonanceParam;  
+    float cutoffParam, resonanceParam, filterGainParam;  
     bool filterBypass;                  
 
     // Overdrive
     float odGain, odWet;
     int odTypeParam;
 
+<<<<<<< HEAD
     // Modulation
     float modFreq, modDepth, modWet;
     int modTypeParam;
@@ -236,8 +280,19 @@ private:
     juce::AudioBuffer<float> modBuffer;
 
     myOsc osc1, osc2;
+=======
+    // Noise Generator
+    float noiseFreqParam, noiseQParam, noiseGainParam, noiseLevelParam;
+    int noiseFilterTypeParam;
+    bool noiseBypass, noiseFilterBypass;
+
+    // Master
+    float masterGain;
+
+    myOsc osc1, osc2, noiseOsc;
+>>>>>>> newGUI
     myEnvelope env1;
-    myFilter filter;
+    myFilter filter, noiseFilter;
     myODfx od;
     myMODfx mod;
 

@@ -16,11 +16,11 @@
 //==============================================================================
 /*
 */
-class Envelope : public juce::Component
+class EnvelopeGUI : public juce::Component
 {
 public:
-    Envelope(LEMSynthAudioProcessor&);
-    ~Envelope() override;
+    EnvelopeGUI(LEMSynthAudioProcessor&);
+    ~EnvelopeGUI() override;
 
     void paint(juce::Graphics&) override;
     void resized() override;
@@ -32,6 +32,13 @@ private:
         sustainSlider,
         releaseSlider;
 
+    juce::Label 
+        attackLabel,
+        decayLabel,
+        sustainLabel,
+        releaseLabel;
+
+
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>
         attackAttachment,
         decayAttachment,
@@ -40,6 +47,6 @@ private:
 
     LEMSynthAudioProcessor& audioProcessor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Envelope)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(EnvelopeGUI)
 };
 

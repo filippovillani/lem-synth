@@ -17,25 +17,25 @@
 //==============================================================================
 /*
 */
-class Filter : public juce::Component
+class FilterGUI : public juce::Component
 {
 public:
-    Filter(LEMSynthAudioProcessor&);
-    ~Filter() override;
+    FilterGUI(LEMSynthAudioProcessor&);
+    ~FilterGUI() override;
 
     void paint(juce::Graphics&) override;
     void resized() override;
 
 private:
     juce::ComboBox filterMenu;
-    juce::Slider cutoffSlider, resonanceSlider;
+    juce::Slider cutoffSlider, resonanceSlider, gainSlider;
     juce::ToggleButton bypassButton;
-    juce::Label cutoffLabel, resonanceLabel;
+    juce::Label cutoffLabel, resonanceLabel, gainLabel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> filterChoice;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffAttachment, resonanceAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffAttachment, resonanceAttachment, gainAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> bypassAttachment;
 
     LEMSynthAudioProcessor& audioProcessor;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Filter)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FilterGUI)
 };

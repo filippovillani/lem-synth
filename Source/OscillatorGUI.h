@@ -17,20 +17,25 @@
 //==============================================================================
 /*
 */
-class Oscillator : public juce::Component
+class OscillatorGUI : public juce::Component
 {
 public:
-    Oscillator(LEMSynthAudioProcessor&);
-    ~Oscillator() override;
+    OscillatorGUI(LEMSynthAudioProcessor&);
+    ~OscillatorGUI() override;
 
     void paint(juce::Graphics&) override;
     void resized() override;
 
 private:
+
     juce::ComboBox osc1Menu, osc2Menu;
     juce::Slider oscMixSlider;
     juce::Slider octShiftSlider1, octShiftSlider2;
     juce::Slider detuneSlider1, detuneSlider2;
+
+    juce::Label detuneLabel1, detuneLabel2,
+        octLabel1, octLabel2,
+        oscMixLabel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> osc1Choice, osc2Choice;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> oscMixAttachment;
@@ -38,6 +43,6 @@ private:
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> detuneAttachment1, detuneAttachment2;
 
     LEMSynthAudioProcessor& audioProcessor;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Oscillator)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorGUI)
 };
 

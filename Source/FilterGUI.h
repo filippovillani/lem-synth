@@ -28,12 +28,12 @@ public:
 
 private:
     juce::ComboBox filterMenu;
-    juce::Slider cutoffSlider, resonanceSlider;
+    juce::Slider cutoffSlider, resonanceSlider, gainSlider;
     juce::ToggleButton bypassButton;
-    juce::Label cutoffLabel, resonanceLabel;
+    juce::Label cutoffLabel, resonanceLabel, gainLabel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> filterChoice;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffAttachment, resonanceAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffAttachment, resonanceAttachment, gainAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> bypassAttachment;
 
     LEMSynthAudioProcessor& audioProcessor;

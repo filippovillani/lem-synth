@@ -164,6 +164,7 @@ void LEMSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
                 apvts.getRawParameterValue("filterType"),
                 apvts.getRawParameterValue("cutoff"),
                 apvts.getRawParameterValue("resonance"),
+                apvts.getRawParameterValue("filterGain"),
                 apvts.getRawParameterValue("filterBypass"));
 
             myVoice->getODParams(
@@ -241,6 +242,7 @@ LEMSynthAudioProcessor::createParameters() {
     params.push_back(std::make_unique<juce::AudioParameterChoice>("filterType", "Filter Type", juce::StringArray("LPF", "BPF", "HPF"), 0));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("cutoff", "CutOff", juce::NormalisableRange<float>(80.f, 20000.f, 1.f, 0.4f), 80.f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("resonance", "Q", juce::NormalisableRange<float>(0.1f, 10.f, 0.1f), 0.707f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("filterGain", "Gain", juce::NormalisableRange<float>(-60.f, 18.f, 0.1f), 0.f));
     params.push_back(std::make_unique<juce::AudioParameterBool>("filterBypass", "Filter Bypass", false));
     // OD's parameters
     params.push_back(std::make_unique<juce::AudioParameterChoice>("odType", "OD Type", juce::StringArray("Overdrive", "Distortion"), 0));

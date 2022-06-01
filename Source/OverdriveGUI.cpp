@@ -59,8 +59,6 @@ OverdriveGUI::~OverdriveGUI()
 
 void OverdriveGUI::paint (juce::Graphics& g)
 {
-    juce::Rectangle<int> titleArea(0, 10, getWidth(), 20);
-
     g.fillAll(juce::Colours::black);
     g.setColour(juce::Colours::orange);
     g.setFont(18.);
@@ -72,7 +70,6 @@ void OverdriveGUI::paint (juce::Graphics& g)
     // Vertical lines
     g.drawLine(0., 0., 0., 220., 3.);
     g.drawLine(250., 0., 250., 220., 1.5);
-    
 }
 
 void OverdriveGUI::resized()

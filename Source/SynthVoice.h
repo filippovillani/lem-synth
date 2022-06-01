@@ -77,10 +77,12 @@ public:
         return env1.adsr(setOscType(), env1.trigger);
     }
     // ================== FILTER ========================
-    void getFilterParams(std::atomic<float>* filterType, std::atomic<float>* filterCutoff, std::atomic<float>* filterRes, std::atomic<float>* onoff) {
+    void getFilterParams(std::atomic<float>* filterType, std::atomic<float>* filterCutoff, std::atomic<float>* filterRes, 
+        std::atomic<float>* filterGain, std::atomic<float>* onoff) {
         filterTypeParam = *filterType;
         cutoffParam = *filterCutoff;
         resonanceParam = *filterRes;
+        filterGainParam = *filterGain;
         filterBypass = *onoff;
     }
 
@@ -179,7 +181,7 @@ private:
 
     // Filter
     int filterTypeParam;                
-    float cutoffParam, resonanceParam;  
+    float cutoffParam, resonanceParam, filterGainParam;  
     bool filterBypass;                  
 
     // Overdrive

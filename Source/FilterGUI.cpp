@@ -34,6 +34,7 @@ FilterGUI::FilterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     cutoffLabel.setText("Freq", juce::dontSendNotification);
     cutoffLabel.attachToComponent(&cutoffSlider, false);
     cutoffLabel.setJustificationType(juce::Justification::centredTop);
+    cutoffLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
     addAndMakeVisible(&cutoffLabel);
 
     resonanceSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
@@ -45,8 +46,23 @@ FilterGUI::FilterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     resonanceLabel.setText("Q", juce::dontSendNotification);
     resonanceLabel.attachToComponent(&resonanceSlider, false);
     resonanceLabel.setJustificationType(juce::Justification::centredTop);
+    resonanceLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
     addAndMakeVisible(&resonanceLabel);
 
+    gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+    gainSlider.setRange(-60.f, 18.f);
+    gainSlider.setValue(0.f);
+    gainSlider.setTextValueSuffix(" dB");
+    gainSlider.setNumDecimalPlacesToDisplay(1);
+    addAndMakeVisible(&gainSlider);
+    gainLabel.setText("Gain", juce::dontSendNotification);
+    gainLabel.attachToComponent(&gainSlider, false);
+    gainLabel.setJustificationType(juce::Justification::centredTop);
+    gainLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
+    addAndMakeVisible(&gainLabel);
+
+    
     bypassButton.setColour(juce::TextButton::buttonColourId, juce::Colours::red);
     bypassButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::green);
     bypassButton.setClickingTogglesState(true);
@@ -55,8 +71,8 @@ FilterGUI::FilterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     filterChoice = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "filterType", filterMenu);
     cutoffAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "cutoff", cutoffSlider);
     resonanceAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "resonance", resonanceSlider);
+    gainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "filterGain", gainSlider);
     bypassAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.apvts, "filterBypass", bypassButton);
-
 
 }
 
@@ -66,26 +82,27 @@ FilterGUI::~FilterGUI()
 
 void FilterGUI::paint(juce::Graphics& g)
 {
-    juce::Rectangle<int> titleArea(0, 10, getWidth(), 20);
-
     g.fillAll(juce::Colours::black);
-    g.setColour(juce::Colours::white);
-    g.drawText("Filter", titleArea, juce::Justification::centredTop);
+    g.setColour(juce::Colours::orange);
+    g.setFont(18.);
+    g.drawText("Filter", 82, 20, 100, 25, juce::Justification::centredTop);
 
-    juce::Rectangle <float> area(25, 25, 150, 150);
-
-    g.setColour(juce::Colours::yellow);
-    g.drawRoundedRectangle(area, 20.0f, 2.0f);
+    // Horizontal lines
+    g.drawLine(0., 0., 250., 0., 1.5);
+    g.drawLine(0., 220., 250., 220., 3.);
+    // Vertical lines
+    g.drawLine(0., 0., 0., 220., 1.5);
+    g.drawLine(250., 0., 250., 220., 1.5);
 }
 
 
 void FilterGUI::resized()
 {
-    juce::Rectangle<int> area = getLocalBounds().reduced(40);
 
-    filterMenu.setBounds(area.removeFromTop(20));
-    cutoffSlider.setBounds(30, 100, 70, 70);
-    resonanceSlider.setBounds(100, 100, 70, 70);
-    bypassButton.setBounds(90, 80, 30, 30);
+    filterMenu.setBounds(40, 45, 170, 25);
+    cutoffSlider.setBounds(20, 120, 70, 70);
+    resonanceSlider.setBounds(93, 120, 70, 70);
+    bypassButton.setBounds(10, 10, 30, 30);
+    gainSlider.setBounds(166, 120, 70, 70);
 }
 

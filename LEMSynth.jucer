@@ -6,7 +6,7 @@
               cppLanguageStandard="17">
   <MAINGROUP id="UJBRfe" name="LEMSynth">
     <GROUP id="{CB1C7664-669A-70E3-2DC1-C8832A65936C}" name="Source">
-      <FILE id="lYVpv2" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
+      <FILE id="iX8mZa" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
       <FILE id="hmzKBX" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
       <FILE id="vpFKot" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

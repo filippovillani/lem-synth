@@ -24,7 +24,7 @@ public:
         detune2 = pow(2, *cents2 / 1200.);
     }
     
-    double setOscType() {
+    double setOscillator() {
         osc1.sampleRate = getSampleRate();
         osc2.sampleRate = getSampleRate();
         switch (osc1Wave) {
@@ -62,6 +62,7 @@ public:
             sample2 = osc2.sine(frequency * octShiftFreq[octIdx2 + 2] * detune2);
             break;
         }
+        
         return (1. - oscMix) * sample1 + oscMix * sample2;
     }
     //  ================= ENVELOPE ==========================
@@ -74,7 +75,7 @@ public:
     
     double setEnvelope() {
         env1.sampleRate = getSampleRate();
-        return env1.adsr(setOscType(), env1.trigger);
+        return env1.adsr(setOscillator(), env1.trigger);
     }
     // ================== FILTER ========================
     void getFilterParams(std::atomic<float>* filterType, std::atomic<float>* filterCutoff, std::atomic<float>* filterRes, 
@@ -88,18 +89,23 @@ public:
 
     double setFilter() {
         filter.sampleRate = getSampleRate();
-
-        switch (filterTypeParam) {
-        case 0:
-            return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
-        case 1:
-            return filter.BPF2ord(setEnvelope(), cutoffParam, resonanceParam);
-        case 2:
-            return filter.HPF2ord(setEnvelope(), cutoffParam, resonanceParam);
-
-        default:
-            return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
+        if (filterBypass) {
+            switch (filterTypeParam) {
+            case 0:
+                return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
+            
+            case 1:
+                return filter.BPF2ord(setEnvelope(), cutoffParam, resonanceParam);
+            
+            case 2:
+                return filter.HPF2ord(setEnvelope(), cutoffParam, resonanceParam);
+            
+            default:
+                return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
+            }
         }
+        else
+            return setEnvelope();
     }
     // =================== OTHER ========================
     void getOtherParams(std::atomic<float>* gain) {
@@ -117,22 +123,13 @@ public:
     double setOD() {
         switch (odTypeParam) {
         case 0:
-            if (filterBypass)
-                return od.overdrive(setFilter(), odGain, odWet);
-            else
-                return od.overdrive(setEnvelope(), odGain, odWet);
-
+            return od.overdrive(setFilter(), odGain, odWet);
+        
         case 1:
-            if (filterBypass)
-                return od.distortion(setFilter(), odGain, odWet);
-            else
-                return od.distortion(setEnvelope(), odGain, odWet);
-
+            return od.distortion(setFilter(), odGain, odWet);
+        
         default:
-            if (filterBypass)
-                return od.overdrive(setFilter(), odGain, odWet);
-            else
-                return od.overdrive(setEnvelope(), odGain, odWet);
+            return od.overdrive(setFilter(), odGain, odWet);
         }
         
     }
@@ -155,10 +152,13 @@ public:
             switch (noiseFilterTypeParam) {
             case 0:
                 return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            
             case 1:
                 return noiseFilter.BPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            
             case 2:
                 return noiseFilter.HPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+            
             default:
                 return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
             }
@@ -212,7 +212,7 @@ private:
     int osc1Wave, osc2Wave;         
     double oscMix;    
     int octIdx1, octIdx2;
-    float octShiftFreq[5] = { 0.25, 0.5, 1, 2, 4 }; // These are the values used to change OSC2 frequency in setOscType()
+    float octShiftFreq[5] = { 0.25, 0.5, 1, 2, 4 }; // These are the values used to change OSC2 frequency in setOscillator()
     float detune1, detune2;
 
     // Filter

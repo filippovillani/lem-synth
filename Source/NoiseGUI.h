@@ -26,6 +26,14 @@ public:
     void resized() override;
 
 private:
+    juce::ComboBox filterMenu;
+    juce::Slider cutoffSlider, resonanceSlider, gainSlider, levelSlider;
+    juce::ToggleButton bypassButton;
+    juce::Label cutoffLabel, resonanceLabel, gainLabel, levelLabel;
+
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> filterChoice;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffAttachment, resonanceAttachment, gainAttachment, levelAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> bypassAttachment;
 
     LEMSynthAudioProcessor& audioProcessor;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NoiseGUI)

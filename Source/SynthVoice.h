@@ -137,6 +137,32 @@ public:
         
     }
 
+    // =================== NOISE GENERATOR ========================
+    void getNoiseParams(std::atomic<float>* selection, std::atomic<float>* level, std::atomic<float>* freq, std::atomic<float>* Q, 
+        std::atomic<float>* gain, std::atomic<float>* onoff) {
+        noiseFilterTypeParam = *selection;
+        noiseLevelParam = *level;
+        noiseFreqParam = *freq;
+        noiseQParam = *Q;
+        noiseGainParam = *gain;
+        noiseBypass = *onoff;
+    }
+
+    double setNoise() {
+        noiseFilter.sampleRate = getSampleRate();
+        switch (noiseFilterTypeParam) {
+        case 0:
+            return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+        case 1:
+            return noiseFilter.BPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+        case 2:
+            return noiseFilter.HPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+        default:
+            return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
+        }
+    }
+  
+
     // =============== MIDI MESSAGES ============================
 
     void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override {
@@ -164,7 +190,12 @@ public:
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override {
         for (int sample = 0; sample < numSamples; ++sample) {
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
-                outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
+                if (noiseBypass)
+                    outputBuffer.addSample(channel, startSample,
+                        setOD() * juce::Decibels::decibelsToGain<float>(masterGain) + setNoise() * juce::Decibels::decibelsToGain<float>(noiseLevelParam));
+                else
+                    outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
+                    
             }
             ++startSample;
         }
@@ -188,11 +219,17 @@ private:
     float odGain, odWet;
     int odTypeParam;
 
+    // Noise Generator
+    float noiseFreqParam, noiseQParam, noiseGainParam, noiseLevelParam;
+    int noiseFilterTypeParam;
+    bool noiseBypass;
+
+    // Master
     float masterGain;
 
-    myOsc osc1, osc2;
+    myOsc osc1, osc2, noiseOsc;
     myEnvelope env1;
-    myFilter filter;
+    myFilter filter, noiseFilter;
     myODfx od;
 
 };

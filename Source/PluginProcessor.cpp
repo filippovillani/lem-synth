@@ -172,6 +172,14 @@ void LEMSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
                 apvts.getRawParameterValue("odGain"),
                 apvts.getRawParameterValue("odWet"));
 
+            myVoice->getNoiseParams(
+                apvts.getRawParameterValue("noiseType"),
+                apvts.getRawParameterValue("noiseLevel"),
+                apvts.getRawParameterValue("noiseFreq"),
+                apvts.getRawParameterValue("noiseQ"),
+                apvts.getRawParameterValue("noiseGain"),
+                apvts.getRawParameterValue("noiseBypass"));
+            
             myVoice->getOtherParams(
                 apvts.getRawParameterValue("masterGain"));
         }
@@ -248,7 +256,13 @@ LEMSynthAudioProcessor::createParameters() {
     params.push_back(std::make_unique<juce::AudioParameterChoice>("odType", "OD Type", juce::StringArray("Overdrive", "Distortion"), 0));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("odGain", "OD Gain", juce::NormalisableRange<float>(-6.f, 18.f, 0.1f), 0.f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("odWet", "OD Wet", juce::NormalisableRange<float>(0.f, 100.f, 1.f), 0.f));
-
+    // Noise's parameters
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("noiseType", "Noise Type", juce::StringArray("LPF", "BPF", "HPF"), 0));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseLevel", "Noise Level", juce::NormalisableRange<float>(-30.f, 12.f, 0.1f), -6.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseFreq", "Noise Freq", juce::NormalisableRange<float>(80.f, 20000.f, 1.f, 0.4f), 80.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseQ", "Noise Q", juce::NormalisableRange<float>(0.1f, 10.f, 0.1f), 0.707f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseGain", "Noise Gain", juce::NormalisableRange<float>(-60.f, 18.f, 0.1f), 0.f));
+    params.push_back(std::make_unique<juce::AudioParameterBool>("noiseBypass", "Noise Bypass", false));
     // Other parameters
     params.push_back(std::make_unique<juce::AudioParameterFloat>("masterGain", "Master Gain", juce::NormalisableRange<float>(-60.f, 12.f, 0.1f), -6.f));
     

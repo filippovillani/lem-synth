@@ -98,11 +98,10 @@ void FilterGUI::paint(juce::Graphics& g)
 
 void FilterGUI::resized()
 {
-
     filterMenu.setBounds(40, 45, 170, 25);
-    cutoffSlider.setBounds(20, 120, 70, 70);
-    resonanceSlider.setBounds(93, 120, 70, 70);
+    cutoffSlider.setBounds(20, 130, 70, 70);
+    resonanceSlider.setBounds(93, 130, 70, 70);
+    gainSlider.setBounds(166, 130, 70, 70);
     bypassButton.setBounds(10, 10, 30, 30);
-    gainSlider.setBounds(166, 120, 70, 70);
 }
 

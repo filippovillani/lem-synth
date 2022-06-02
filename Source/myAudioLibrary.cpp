@@ -130,7 +130,7 @@ double myFilter::LPF1ord(double input, float cutoff) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    k = tan(M_TWOPI * cutoff / sampleRate);
+    k = tan(M_PI * cutoff / sampleRate);
     // Coefficients
     b0 = k / (k + 1.);
     b1 = b0;
@@ -147,7 +147,7 @@ double myFilter::HPF1ord(double input, float cutoff) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    k = tan(M_TWOPI * cutoff / sampleRate);
+    k = tan(M_PI * cutoff / sampleRate);
     // Coefficients
     b0 = 1. / (k + 1.);
     b1 = -b0;
@@ -165,7 +165,7 @@ double myFilter::LPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    k = tan(M_TWOPI * cutoff / sampleRate);
+    k = tan(M_PI * cutoff / sampleRate);
     // Coefficients
     b0 = k * k * Q / (k * k * Q + Q + k);
     b1 = 2. * b0;
@@ -186,7 +186,7 @@ double myFilter::HPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    k = tan(M_TWOPI * cutoff / sampleRate);
+    k = tan(M_PI * cutoff / sampleRate);
     // Coefficients
     b0 = Q / (k * k * Q + Q + k);
     b1 = -2. * Q / (k * k * Q + Q + k);
@@ -207,7 +207,7 @@ double myFilter::BPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    k = tan(M_TWOPI * cutoff / sampleRate);
+    k = tan(M_PI * cutoff / sampleRate);
     // Coefficients
     b0 = k / (k * k * Q + Q + k);
     b2 = -b0;
@@ -227,7 +227,7 @@ double myFilter::LPShelving(double input, float cutoff, float gain_lin) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    k = tan(M_TWOPI * cutoff / sampleRate);
+    k = tan(M_PI * cutoff / sampleRate);
     // Useful variables
     double k2 = k * k;
     double V0k2 = gain_lin * k * k;
@@ -262,7 +262,7 @@ double myFilter::HPShelving(double input, float cutoff, float gain_lin) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    k = tan(M_TWOPI * cutoff / sampleRate);
+    k = tan(M_PI * cutoff / sampleRate);
     // Useful variables
     double k2 = k * k;
     double V0k2 = gain_lin * k * k;

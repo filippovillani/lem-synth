@@ -107,10 +107,10 @@ public:
                 return filter.HPF1ord(setEnvelope(), cutoffParam);
             
             case 5:
-                return filter.LPShelving(setEnvelope(), cutoffParam, filterGainParam);
+                return filter.LPShelving(setEnvelope(), cutoffParam, juce::Decibels::decibelsToGain(filterGainParam));
             
             case 6:
-                return filter.HPShelving(setEnvelope(), cutoffParam, filterGainParam);
+                return filter.HPShelving(setEnvelope(), cutoffParam, juce::Decibels::decibelsToGain(filterGainParam));
             
             default:
                 return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
@@ -172,16 +172,16 @@ public:
                 return noiseFilter.HPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
             
             case 3:
-                return filter.LPF1ord(noiseOsc.noise(), noiseFreqParam);
+                return noiseFilter.LPF1ord(noiseOsc.noise(), noiseFreqParam);
 
             case 4:
-                return filter.HPF1ord(noiseOsc.noise(), noiseFreqParam);
+                return noiseFilter.HPF1ord(noiseOsc.noise(), noiseFreqParam);
 
             case 5:
-                return filter.LPShelving(noiseOsc.noise(), noiseFreqParam, noiseGainParam);
+                return noiseFilter.LPShelving(noiseOsc.noise(), noiseFreqParam, juce::Decibels::decibelsToGain(noiseGainParam));
 
             case 6:
-                return filter.HPShelving(noiseOsc.noise(), noiseFreqParam, noiseGainParam);
+                return noiseFilter.HPShelving(noiseOsc.noise(), noiseFreqParam, juce::Decibels::decibelsToGain(noiseGainParam));
 
             default:
                 return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);

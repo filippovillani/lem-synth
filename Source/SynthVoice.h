@@ -229,9 +229,9 @@ public:
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
                 if (noiseBypass)
                     outputBuffer.addSample(channel, startSample,
-                        (setOD() + setNoise() * juce::Decibels::decibelsToGain<float>(noiseLevelParam)) * juce::Decibels::decibelsToGain<float>(masterGain));
+                        (setOD() * level + setNoise() * juce::Decibels::decibelsToGain<float>(noiseLevelParam)) * juce::Decibels::decibelsToGain<float>(masterGain));
                 else
-                    outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
+                    outputBuffer.addSample(channel, startSample, setOD() * level * juce::Decibels::decibelsToGain<float>(masterGain));
                     
             }
             ++startSample;

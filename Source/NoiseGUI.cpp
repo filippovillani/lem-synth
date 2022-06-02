@@ -16,9 +16,13 @@ NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 {
     setSize(250, 220);
 
-    filterMenu.addItem("LPF", 1);
-    filterMenu.addItem("BPF", 2);
-    filterMenu.addItem("HPF", 3);
+    filterMenu.addItem("LPF2ord", 1);
+    filterMenu.addItem("BPF2ord", 2);
+    filterMenu.addItem("HPF2ord", 3);
+    filterMenu.addItem("LPF1ord", 4);
+    filterMenu.addItem("HPF1ord", 5);
+    filterMenu.addItem("LPShelv", 6);
+    filterMenu.addItem("HPShelv", 7);
     filterMenu.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(&filterMenu);
 
@@ -63,8 +67,8 @@ NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
 
     levelSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     levelSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
-    levelSlider.setRange(-30.f, 12.f);
-    levelSlider.setValue(0.f);
+    levelSlider.setRange(-60.f, 12.f);
+    levelSlider.setValue(-30.f);
     levelSlider.setTextValueSuffix(" dB");
     levelSlider.setNumDecimalPlacesToDisplay(1);
     addAndMakeVisible(&levelSlider);

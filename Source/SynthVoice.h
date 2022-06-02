@@ -100,6 +100,18 @@ public:
             case 2:
                 return filter.HPF2ord(setEnvelope(), cutoffParam, resonanceParam);
             
+            case 3:
+                return filter.LPF1ord(setEnvelope(), cutoffParam);
+            
+            case 4:
+                return filter.HPF1ord(setEnvelope(), cutoffParam);
+            
+            case 5:
+                return filter.LPShelving(setEnvelope(), cutoffParam, filterGainParam);
+            
+            case 6:
+                return filter.HPShelving(setEnvelope(), cutoffParam, filterGainParam);
+            
             default:
                 return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
             }
@@ -159,6 +171,18 @@ public:
             case 2:
                 return noiseFilter.HPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
             
+            case 3:
+                return filter.LPF1ord(noiseOsc.noise(), noiseFreqParam);
+
+            case 4:
+                return filter.HPF1ord(noiseOsc.noise(), noiseFreqParam);
+
+            case 5:
+                return filter.LPShelving(noiseOsc.noise(), noiseFreqParam, noiseGainParam);
+
+            case 6:
+                return filter.HPShelving(noiseOsc.noise(), noiseFreqParam, noiseGainParam);
+
             default:
                 return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
             }

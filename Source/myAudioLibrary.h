@@ -17,6 +17,7 @@
 #define M_PI  3.1415926535897932384626433832795
 #endif
 #define M_TWOPI 6.283185307179586476925286766559
+#define M_SQRT2 1.414213562373095048801
 
 // =============== OVERDRIVE ===================
 class myODfx {
@@ -63,6 +64,8 @@ public:
     double LPF2ord(double input, float cutoff, float Q);
     double HPF2ord(double input, float cutoff, float Q);
     double BPF2ord(double input, float cutoff, float Q);
+    double LPShelving(double input, float cutoff, float gain_lin);
+    double HPShelving(double input, float cutoff, float gain_lin);
 
 
 private:
@@ -70,13 +73,12 @@ private:
     double outputs[3] = { 0 };
 
     double output;
+    
+    // Parameters
+    double k;
 
-    float theta;
-    double argtan;
-    float gamma, d, beta;
-
-    float a0, a1, a2;
-    float b1, b2;
+    double b0, b1, b2;
+    double a1, a2;
 
 };
 

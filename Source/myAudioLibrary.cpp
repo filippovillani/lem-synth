@@ -130,14 +130,13 @@ double myFilter::LPF1ord(double input, float cutoff) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = M_TWOPI * cutoff / sampleRate;
-    gamma = cos(theta) / (1.f + sin(theta));
+    k = tan(M_TWOPI * cutoff / sampleRate);
     // Coefficients
-    a0 = (1.f - gamma) / 2;
-    a1 = a0;
-    b1 = -gamma;
+    b0 = k / (k + 1.);
+    b1 = b0;
+    a1 = (k - 1.) / (k + 1.);
     // Finite difference equation
-    output = a0 * inputs[0] + a1 * inputs[1] - b1 * outputs[1];
+    output = b0 * inputs[0] + b1 * inputs[1] - a1 * outputs[1];
     // Update delay line
     outputs[1] = output;
     return output;
@@ -148,14 +147,13 @@ double myFilter::HPF1ord(double input, float cutoff) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = M_TWOPI * cutoff / sampleRate;
-    gamma = cos(theta) / (1.f + sin(theta));
+    k = tan(M_TWOPI * cutoff / sampleRate);
     // Coefficients
-    a0 = (1.f + gamma) / 2;
-    a1 = -(1.f - gamma) / 2;
-    b1 = -gamma;
+    b0 = 1. / (k + 1.);
+    b1 = -b0;
+    a1 = (k - 1.) / (k + 1.);
     // Finite difference equation
-    output = a0 * inputs[0] + a1 * inputs[1] - b1 * outputs[1];
+    output = b0 * inputs[0] + b1 * inputs[1] - a1 * outputs[1];
     // Update delay line
     outputs[1] = output;
     return output;
@@ -167,18 +165,15 @@ double myFilter::LPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = M_TWOPI * cutoff / sampleRate;
-    d = 1 / Q;
-    beta = 0.5 * (1.f - d / 2 * sin(theta) / (1.f + d / 2 * sin(theta)));
-    gamma = (0.5f + beta) * cos(theta);
+    k = tan(M_TWOPI * cutoff / sampleRate);
     // Coefficients
-    a1 = 0.5f + beta - gamma;
-    a0 = a1 / 2;
-    a2 = a0;
-    b1 = -2 * gamma;
-    b2 = 2 * beta;
+    b0 = k * k * Q / (k * k * Q + Q + k);
+    b1 = 2. * b0;
+    b2 = b0;
+    a1 = 2. * Q * (k * k - 1.) / (k * k * Q + k + Q);
+    a2 = (k * k * Q - k + Q) / (k * k * Q + k + Q);
     // Finite difference equation
-    output = a0 * inputs[0] + a1 * inputs[1] + a2 * inputs[2] - b1 * outputs[1] - b2 * outputs[2];
+    output = b0 * inputs[0] + b1 * inputs[1] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
     // Update delay line
     outputs[2] = outputs[1];
     outputs[1] = output;
@@ -191,18 +186,15 @@ double myFilter::HPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = M_TWOPI * cutoff / sampleRate;
-    d = 1 / Q;
-    beta = 0.5 * (1.f - d / 2 * sin(theta)) / (1.f + d / 2 * sin(theta));
-    gamma = (0.5f + beta) * cos(theta);
+    k = tan(M_TWOPI * cutoff / sampleRate);
     // Coefficients
-    a1 = -(0.5f + beta + gamma);
-    a0 = -a1 / 2;
-    a2 = a0;
-    b1 = -2 * gamma;
-    b2 = 2 * beta;
+    b0 = Q / (k * k * Q + Q + k);
+    b1 = -2. * Q / (k * k * Q + Q + k);
+    b2 = b0;
+    a1 = 2. * Q * (k * k - 1.) / (k * k * Q + k + Q);
+    a2 = (k * k * Q - k + Q) / (k * k * Q + k + Q);
     // Finite difference equation
-    output = a0 * inputs[0] + a1 * inputs[1] + a2 * inputs[2] - b1 * outputs[1] - b2 * outputs[2];
+    output = b0 * inputs[0] + b1 * inputs[1] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
     // Update delay line
     outputs[2] = outputs[1];
     outputs[1] = output;
@@ -215,26 +207,89 @@ double myFilter::BPF2ord(double input, float cutoff, float Q) {
     inputs[1] = inputs[0];
     inputs[0] = input;
     // Parameters
-    theta = M_TWOPI * cutoff / sampleRate;
-    argtan = theta / (2 * Q);
-    if (argtan >= 0.999 * M_PI / 2)
-        argtan = 0.999 * M_PI / 2;
-    beta = 0.5 * (1.f - tan(argtan)) / (1.f + tan(argtan));
-    gamma = (0.5f + beta) * cos(theta);
+    k = tan(M_TWOPI * cutoff / sampleRate);
     // Coefficients
-    a0 = 0.5 - beta;
-    a2 = -a0;
-    b1 = -2 * gamma;
-    b2 = 2 * beta;
+    b0 = k / (k * k * Q + Q + k);
+    b2 = -b0;
+    a1 = 2. * Q * (k * k - 1.) / (k * k * Q + k + Q);
+    a2 = (k * k * Q - k + Q) / (k * k * Q + k + Q);
     // Finite difference equation
-    output = a0 * inputs[0] + a2 * inputs[2] - b1 * outputs[1] - b2 * outputs[2];
+    output = b0 * inputs[0] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
     // Update delay line
     outputs[2] = outputs[1];
     outputs[1] = output;
     return output;
 }
 
+double myFilter::LPShelving(double input, float cutoff, float gain_lin) {
+    // forward delay line
+    inputs[2] = inputs[1];
+    inputs[1] = inputs[0];
+    inputs[0] = input;
+    // Parameters
+    k = tan(M_TWOPI * cutoff / sampleRate);
+    // Useful variables
+    double k2 = k * k;
+    double V0k2 = gain_lin * k * k;
+    double sqrt2V0 = sqrt(2. * gain_lin);
+    // Coefficients
+    if (gain_lin >= 1.) {
+        b0 = (1. + sqrt2V0 * k + V0k2) / (1. + M_SQRT2 * k + k2);
+        b1 = (2. * (V0k2 - 1.)) / (1. + M_SQRT2 * k + k2);
+        b2 = (1. - sqrt2V0 * k + V0k2) / (1. + M_SQRT2 * k + k2);
+        a1 = (2. * (k2 - 1.)) / (1. + M_SQRT2 * k + k2);
+        a2 = (1. - M_SQRT2 * k + k2) / (1. + M_SQRT2 * k + k2);
+    }
+    else {
+        b0 = (gain_lin * (1. + M_SQRT2 * k + k2)) / (gain_lin + sqrt2V0 + k2);
+        b1 = (2. * gain_lin * (k2 - 1.)) / (gain_lin + sqrt2V0 + k2);
+        b2 = (gain_lin * (1. - M_SQRT2 * k + k2)) / (gain_lin + sqrt(2. * gain_lin) + k2);
+        a1 = (2. * (k2 - gain_lin)) / (gain_lin + sqrt2V0 + k2);
+        a2 = (gain_lin - sqrt2V0 + k2) / (gain_lin + sqrt2V0 + k2);
+    }
+  
+    // Finite difference equation
+    output = b0 * inputs[0] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
+    // Update delay line
+    outputs[2] = outputs[1];
+    outputs[1] = output;
+    return output;
+}
 
+double myFilter::HPShelving(double input, float cutoff, float gain_lin) {
+    // forward delay line
+    inputs[2] = inputs[1];
+    inputs[1] = inputs[0];
+    inputs[0] = input;
+    // Parameters
+    k = tan(M_TWOPI * cutoff / sampleRate);
+    // Useful variables
+    double k2 = k * k;
+    double V0k2 = gain_lin * k * k;
+    double sqrt2V0 = sqrt(2. * gain_lin);
+    // Coefficients
+    if (gain_lin >= 1.) {
+        b0 = (gain_lin + sqrt2V0 * k + k2) / (1. + M_SQRT2 * k + k2);
+        b1 = (2. * (k2 - gain_lin)) / (1. + M_SQRT2 * k + k2);
+        b2 = (gain_lin - sqrt2V0 * k + k2) / (1. + M_SQRT2 * k + k2);
+        a1 = (2. * (k2 - 1.)) / (1. + M_SQRT2 * k + k2);
+        a2 = (1. - M_SQRT2 * k + k2) / (1. + M_SQRT2 * k + k2);
+    }
+    else {
+        b0 = (gain_lin * (1. + M_SQRT2 * k + k2)) / (1. + sqrt2V0 * k + gain_lin * k2);
+        b1 = (2. * gain_lin * (k2 - 1.)) / (1. + sqrt2V0 * k + gain_lin * k2);
+        b2 = (gain_lin * (1. - M_SQRT2 * k + k2)) / (1. + sqrt2V0 * k + gain_lin * k2);
+        a1 = (2. * (gain_lin * k2 - 1.)) / (1. + sqrt2V0 * k + gain_lin * k2);
+        a2 = (1. - sqrt2V0 * k + gain_lin * k2) / (1. + sqrt2V0 * k + gain_lin * k2);
+    }
+
+    // Finite difference equation
+    output = b0 * inputs[0] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
+    // Update delay line
+    outputs[2] = outputs[1];
+    outputs[1] = output;
+    return output;
+}
 
 // =============== OSCILLATORS ===================
 myOsc::myOsc() {

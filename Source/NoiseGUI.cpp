@@ -55,7 +55,7 @@ NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
     gainSlider.setRange(-60.f, 18.f);
-    gainSlider.setValue(0.f);
+    gainSlider.setValue(-3.f);
     gainSlider.setTextValueSuffix(" dB");
     gainSlider.setNumDecimalPlacesToDisplay(1);
     addAndMakeVisible(&gainSlider);
@@ -78,13 +78,9 @@ NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     levelLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
     addAndMakeVisible(&levelLabel);
 
-    //bypassButton.setColour(juce::TextButton::buttonColourId, juce::Colours::red);
-    //bypassButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::green);
     bypassButton.setClickingTogglesState(true);
     addAndMakeVisible(&bypassButton);
 
-    //bypassButton.setColour(juce::TextButton::buttonColourId, juce::Colours::red);
-    //bypassButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::green);
     filterBypassButton.setClickingTogglesState(true);
     addAndMakeVisible(&filterBypassButton);
 

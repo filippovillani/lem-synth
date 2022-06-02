@@ -162,8 +162,8 @@ void LEMSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 
             myVoice->getFilterParams(
                 apvts.getRawParameterValue("filterType"),
-                apvts.getRawParameterValue("cutoff"),
-                apvts.getRawParameterValue("resonance"),
+                apvts.getRawParameterValue("filterCutoff"),
+                apvts.getRawParameterValue("filterResonance"),
                 apvts.getRawParameterValue("filterGain"),
                 apvts.getRawParameterValue("filterBypass"));
 
@@ -243,14 +243,14 @@ LEMSynthAudioProcessor::createParameters() {
     params.push_back(std::make_unique<juce::AudioParameterInt>("detune1", "Detune Shift 1", -100, 100, 0));
     params.push_back(std::make_unique<juce::AudioParameterInt>("detune2", "Detune Shift 2", -100, 100, 0));
     // Envelope's parameters
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("attack", "Attack", juce::NormalisableRange<float>(5.f, 5000.f, 1.f), 1.f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("decay", "Decay", juce::NormalisableRange<float>(5.f, 5000.f, 1.f), 5.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("attack", "Attack", juce::NormalisableRange<float>(5.f, 5000.f, 1.f, 0.4f), 1.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("decay", "Decay", juce::NormalisableRange<float>(5.f, 5000.f, 1.f, 0.4f), 5.f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("sustain", "Sustain", juce::NormalisableRange<float>(0.f, 1.f, 0.01f), 0.8f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("release", "Release", juce::NormalisableRange<float>(5.f, 5000.f, 1.f), 5.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("release", "Release", juce::NormalisableRange<float>(5.f, 5000.f, 1.f, 0.4f), 5.f));
     // Filter's parameters
     params.push_back(std::make_unique<juce::AudioParameterChoice>("filterType", "Filter Type", juce::StringArray("LPF2ord", "BPF2ord", "HPF2ord", "LPF1ord", "HPF1ord", "LPShelv", "HPShelv"), 0));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("cutoff", "CutOff", juce::NormalisableRange<float>(80.f, 20000.f, 1.f, 0.4f), 80.f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("resonance", "Q", juce::NormalisableRange<float>(0.1f, 10.f, 0.1f), 0.707f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("filterCutoff", "CutOff", juce::NormalisableRange<float>(80.f, 20000.f, 1.f, 0.4f), 80.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("filterResonance", "Q", juce::NormalisableRange<float>(0.1f, 10.f, 0.1f), 0.707f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("filterGain", "Gain", juce::NormalisableRange<float>(-60.f, 18.f, 0.1f), 0.f));
     params.push_back(std::make_unique<juce::AudioParameterBool>("filterBypass", "Filter Bypass", false));
     // OD's parameters
@@ -258,11 +258,11 @@ LEMSynthAudioProcessor::createParameters() {
     params.push_back(std::make_unique<juce::AudioParameterFloat>("odGain", "OD Gain", juce::NormalisableRange<float>(-6.f, 18.f, 0.1f), 0.f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("odWet", "OD Wet", juce::NormalisableRange<float>(0.f, 100.f, 1.f), 0.f));
     // Noise's parameters
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("noiseType", "Noise Type", juce::StringArray("LPF", "BPF", "HPF"), 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("noiseType", "Noise Type", juce::StringArray("LPF2ord", "BPF2ord", "HPF2ord", "LPF1ord", "HPF1ord", "LPShelv", "HPShelv"), 0));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseLevel", "Noise Level", juce::NormalisableRange<float>(-60.f, 12.f, 0.1f), -30.f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseFreq", "Noise Freq", juce::NormalisableRange<float>(80.f, 20000.f, 1.f, 0.4f), 80.f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseQ", "Noise Q", juce::NormalisableRange<float>(0.1f, 10.f, 0.1f), 0.707f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseGain", "Noise Gain", juce::NormalisableRange<float>(-60.f, 18.f, 0.1f), 0.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("noiseGain", "Noise Gain", juce::NormalisableRange<float>(-60.f, 18.f, 0.1f), -3.f));
     params.push_back(std::make_unique<juce::AudioParameterBool>("noiseBypass", "Noise Bypass", false));
     params.push_back(std::make_unique<juce::AudioParameterBool>("noiseFilterBypass", "Noise Filter Bypass", false));
     // Other parameters

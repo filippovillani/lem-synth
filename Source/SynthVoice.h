@@ -154,6 +154,7 @@ public:
         noiseFreqParam = *freq;
         noiseQParam = *Q;
         noiseGainParam = *gain;
+        noiseGainParam = juce::Decibels::decibelsToGain(noiseGainParam);
         noiseBypass = *onoff;
         noiseFilterBypass = *onoffFilter;
     }
@@ -178,10 +179,10 @@ public:
                 return noiseFilter.HPF1ord(noiseOsc.noise(), noiseFreqParam);
 
             case 5:
-                return noiseFilter.LPShelving(noiseOsc.noise(), noiseFreqParam, juce::Decibels::decibelsToGain(noiseGainParam));
+                return noiseFilter.LPShelving(noiseOsc.noise(), noiseFreqParam, noiseGainParam);
 
             case 6:
-                return noiseFilter.HPShelving(noiseOsc.noise(), noiseFreqParam, juce::Decibels::decibelsToGain(noiseGainParam));
+                return noiseFilter.HPShelving(noiseOsc.noise(), noiseFreqParam, noiseGainParam);
 
             default:
                 return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);
@@ -221,7 +222,7 @@ public:
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
                 if (noiseBypass)
                     outputBuffer.addSample(channel, startSample,
-                        setOD() * juce::Decibels::decibelsToGain<float>(masterGain) + setNoise() * juce::Decibels::decibelsToGain<float>(noiseLevelParam));
+                        (setOD() + setNoise() * juce::Decibels::decibelsToGain<float>(noiseLevelParam)) * juce::Decibels::decibelsToGain<float>(masterGain));
                 else
                     outputBuffer.addSample(channel, startSample, setOD() * juce::Decibels::decibelsToGain<float>(masterGain));
                     

@@ -84,6 +84,7 @@ public:
         cutoffParam = *filterCutoff;
         resonanceParam = *filterRes;
         filterGainParam = *filterGain;
+        filterGainParam = juce::Decibels::decibelsToGain(filterGainParam);
         filterBypass = *onoff;
     }
 
@@ -107,11 +108,14 @@ public:
                 return filter.HPF1ord(setEnvelope(), cutoffParam);
             
             case 5:
-                return filter.LPShelving(setEnvelope(), cutoffParam, juce::Decibels::decibelsToGain(filterGainParam));
+                return filter.LPShelving(setEnvelope(), cutoffParam, filterGainParam);
             
             case 6:
-                return filter.HPShelving(setEnvelope(), cutoffParam, juce::Decibels::decibelsToGain(filterGainParam));
+                return filter.HPShelving(setEnvelope(), cutoffParam, filterGainParam);
             
+            case 7:
+                return filter.Peak(setEnvelope(), cutoffParam, resonanceParam, filterGainParam);
+
             default:
                 return filter.LPF2ord(setEnvelope(), cutoffParam, resonanceParam);
             }
@@ -183,6 +187,9 @@ public:
 
             case 6:
                 return noiseFilter.HPShelving(noiseOsc.noise(), noiseFreqParam, noiseGainParam);
+
+            case 7:
+                return noiseFilter.Peak(noiseOsc.noise(), noiseFreqParam, noiseQParam, noiseGainParam);
 
             default:
                 return noiseFilter.LPF2ord(noiseOsc.noise(), noiseFreqParam, noiseQParam);

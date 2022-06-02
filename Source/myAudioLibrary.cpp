@@ -291,16 +291,43 @@ double myFilter::HPShelving(double input, float cutoff, float gain_lin) {
     return output;
 }
 
-//double myFilter::Peak(double input, float cutoff, float Q, float gain_lin) {
-//    // forward delay line
-//    inputs[2] = inputs[1];
-//    inputs[1] = inputs[0];
-//    inputs[0] = input;
-//    // Parameters
-//    k = tan(M_PI * cutoff / sampleRate);
-//
-//    return output;
-//}
+double myFilter::Peak(double input, float cutoff, float Q, float gain_lin) {
+    // forward delay line
+    inputs[2] = inputs[1];
+    inputs[1] = inputs[0];
+    inputs[0] = input;
+    // Parameters
+    k = tan(M_PI * cutoff / sampleRate);
+    // Useful variables
+    double k2 = k * k;
+    double V0_Q = gain_lin / Q;
+    double invV0Q = 1. / (gain_lin * (double)Q);
+    double invQ = 1. / Q;
+
+    // Coefficients
+    if (gain_lin >= 1.) {
+        b0 = (1. + V0_Q * k + k2)  / (1. + invQ * k + k2);
+        b1 = (2. * (k2 - 1.))         / (1. + invQ * k + k2);
+        b2 = (1. - V0_Q * k + k2)  / (1. + invQ * k + k2);
+        a1 = b1;
+        a2 = (1. - invQ * k + k2)        / (1. + invQ * k + k2);
+    }
+    else {
+        b0 = (1. + invQ * k + k2)   / (1. + invV0Q * k + k2);
+        b1 = (2. * (k2 - 1.))       / (1. + invV0Q * k + k2);
+        b2 = (1. - invQ * k + k2)   / (1. + invV0Q * k + k2);
+        a1 = b1;
+        a2 = (1. - invV0Q * k + k2) / (1. + invV0Q * k + k2);
+    }
+
+    // Finite difference equation
+    output = b0 * inputs[0] + b1 * inputs[1] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
+    // Update delay line
+    outputs[2] = outputs[1];
+    outputs[1] = output;
+
+    return output;
+}
 
 // =============== OSCILLATORS ===================
 myOsc::myOsc() {

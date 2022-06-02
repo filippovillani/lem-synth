@@ -22,13 +22,14 @@ NoiseGUI::NoiseGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     filterMenu.addItem("LPF1ord", 4);
     filterMenu.addItem("HPF1ord", 5);
     filterMenu.addItem("LPShelf", 6);
-    filterMenu.addItem("HPShelf", 7);
+    filterMenu.addItem("HPShelf", 7); 
+    filterMenu.addItem("Peak", 8);
     filterMenu.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(&filterMenu);
 
     cutoffSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     cutoffSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 55, 20);
-    cutoffSlider.setRange(80.f, 20000.f);
+    cutoffSlider.setRange(30.f, 20000.f);
     cutoffSlider.setSkewFactor(0.4f);
     cutoffSlider.setValue(80.f);
     cutoffSlider.setTextValueSuffix(" Hz");

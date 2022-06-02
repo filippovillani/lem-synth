@@ -234,22 +234,22 @@ double myFilter::LPShelving(double input, float cutoff, float gain_lin) {
     double sqrt2V0 = sqrt(2. * gain_lin);
     // Coefficients
     if (gain_lin >= 1.) {
-        b0 = (1. + sqrt2V0 * k + V0k2) / (1. + M_SQRT2 * k + k2);
-        b1 = (2. * (V0k2 - 1.)) / (1. + M_SQRT2 * k + k2);
-        b2 = (1. - sqrt2V0 * k + V0k2) / (1. + M_SQRT2 * k + k2);
-        a1 = (2. * (k2 - 1.)) / (1. + M_SQRT2 * k + k2);
-        a2 = (1. - M_SQRT2 * k + k2) / (1. + M_SQRT2 * k + k2);
+        b0 = (1. + sqrt2V0 * k + V0k2)  / (1. + M_SQRT2 * k + k2);
+        b1 = (2. * (V0k2 - 1.))         / (1. + M_SQRT2 * k + k2);
+        b2 = (1. - sqrt2V0 * k + V0k2)  / (1. + M_SQRT2 * k + k2);
+        a1 = (2. * (k2 - 1.))           / (1. + M_SQRT2 * k + k2);
+        a2 = (1. - M_SQRT2 * k + k2)    / (1. + M_SQRT2 * k + k2);
     }
     else {
-        b0 = (gain_lin * (1. + M_SQRT2 * k + k2)) / (gain_lin + sqrt2V0 + k2);
-        b1 = (2. * gain_lin * (k2 - 1.)) / (gain_lin + sqrt2V0 + k2);
-        b2 = (gain_lin * (1. - M_SQRT2 * k + k2)) / (gain_lin + sqrt(2. * gain_lin) + k2);
-        a1 = (2. * (k2 - gain_lin)) / (gain_lin + sqrt2V0 + k2);
-        a2 = (gain_lin - sqrt2V0 + k2) / (gain_lin + sqrt2V0 + k2);
+        b0 = (gain_lin * (1. + M_SQRT2 * k + k2))   / (gain_lin + sqrt2V0 * k + k2);
+        b1 = (2. * gain_lin * (k2 - 1.))            / (gain_lin + sqrt2V0 * k + k2);
+        b2 = (gain_lin * (1. - M_SQRT2 * k + k2))   / (gain_lin + sqrt2V0 * k + k2);
+        a1 = (2. * (k2 - gain_lin))                 / (gain_lin + sqrt2V0 * k + k2);
+        a2 = (gain_lin - sqrt2V0 * k + k2)          / (gain_lin + sqrt2V0 * k + k2);
     }
   
     // Finite difference equation
-    output = b0 * inputs[0] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
+    output = b0 * inputs[0] + b1 * inputs[1] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
     // Update delay line
     outputs[2] = outputs[1];
     outputs[1] = output;
@@ -269,27 +269,38 @@ double myFilter::HPShelving(double input, float cutoff, float gain_lin) {
     double sqrt2V0 = sqrt(2. * gain_lin);
     // Coefficients
     if (gain_lin >= 1.) {
-        b0 = (gain_lin + sqrt2V0 * k + k2) / (1. + M_SQRT2 * k + k2);
-        b1 = (2. * (k2 - gain_lin)) / (1. + M_SQRT2 * k + k2);
-        b2 = (gain_lin - sqrt2V0 * k + k2) / (1. + M_SQRT2 * k + k2);
-        a1 = (2. * (k2 - 1.)) / (1. + M_SQRT2 * k + k2);
-        a2 = (1. - M_SQRT2 * k + k2) / (1. + M_SQRT2 * k + k2);
+        b0 = (gain_lin + sqrt2V0 * k + k2)  / (1. + M_SQRT2 * k + k2);
+        b1 = (2. * (k2 - gain_lin))         / (1. + M_SQRT2 * k + k2);
+        b2 = (gain_lin - sqrt2V0 * k + k2)  / (1. + M_SQRT2 * k + k2);
+        a1 = (2. * (k2 - 1.))               / (1. + M_SQRT2 * k + k2);
+        a2 = (1. - M_SQRT2 * k + k2)        / (1. + M_SQRT2 * k + k2);
     }
     else {
-        b0 = (gain_lin * (1. + M_SQRT2 * k + k2)) / (1. + sqrt2V0 * k + gain_lin * k2);
-        b1 = (2. * gain_lin * (k2 - 1.)) / (1. + sqrt2V0 * k + gain_lin * k2);
-        b2 = (gain_lin * (1. - M_SQRT2 * k + k2)) / (1. + sqrt2V0 * k + gain_lin * k2);
-        a1 = (2. * (gain_lin * k2 - 1.)) / (1. + sqrt2V0 * k + gain_lin * k2);
-        a2 = (1. - sqrt2V0 * k + gain_lin * k2) / (1. + sqrt2V0 * k + gain_lin * k2);
+        b0 = (gain_lin * (1. + M_SQRT2 * k + k2))   / (1. + sqrt2V0 * k + V0k2);
+        b1 = (2. * gain_lin * (k2 - 1.))            / (1. + sqrt2V0 * k + V0k2);
+        b2 = (gain_lin * (1. - M_SQRT2 * k + k2))   / (1. + sqrt2V0 * k + V0k2);
+        a1 = (2. * (V0k2 - 1.))                     / (1. + sqrt2V0 * k + V0k2);
+        a2 = (1. - sqrt2V0 * k + V0k2)              / (1. + sqrt2V0 * k + V0k2);
     }
 
     // Finite difference equation
-    output = b0 * inputs[0] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
+    output = b0 * inputs[0] + b1 * inputs[1] + b2 * inputs[2] - a1 * outputs[1] - a2 * outputs[2];
     // Update delay line
     outputs[2] = outputs[1];
     outputs[1] = output;
     return output;
 }
+
+//double myFilter::Peak(double input, float cutoff, float Q, float gain_lin) {
+//    // forward delay line
+//    inputs[2] = inputs[1];
+//    inputs[1] = inputs[0];
+//    inputs[0] = input;
+//    // Parameters
+//    k = tan(M_PI * cutoff / sampleRate);
+//
+//    return output;
+//}
 
 // =============== OSCILLATORS ===================
 myOsc::myOsc() {

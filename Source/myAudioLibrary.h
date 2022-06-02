@@ -66,6 +66,7 @@ public:
     double BPF2ord(double input, float cutoff, float Q);
     double LPShelving(double input, float cutoff, float gain_lin);
     double HPShelving(double input, float cutoff, float gain_lin);
+    /*double Peak(double input, float cutoff, float Q, float gain_lin);*/
 
 
 private:

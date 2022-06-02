@@ -22,8 +22,8 @@ FilterGUI::FilterGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     filterMenu.addItem("HPF2ord", 3);
     filterMenu.addItem("LPF1ord", 4);
     filterMenu.addItem("HPF1ord", 5);
-    filterMenu.addItem("LPShelv", 6);
-    filterMenu.addItem("HPShelv", 7);
+    filterMenu.addItem("LPShelf", 6);
+    filterMenu.addItem("HPShelf", 7);
     filterMenu.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(&filterMenu);
 

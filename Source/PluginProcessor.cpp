@@ -235,9 +235,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout
 LEMSynthAudioProcessor::createParameters() {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
     // Oscillator's parameters
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("osc1Type", "Osc1 Type", juce::StringArray("Sine", "Saw", "Square", "Triangle"), 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("osc1Type", "Osc1 Type", juce::StringArray("Sine", "Saw", "Square", "Triangle", "Noise"), 0));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("oscMix", "Osc Mix", juce::NormalisableRange<float>(0.f, 100.f, 1.f), 0.f));
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("osc2Type", "Osc2 Type", juce::StringArray("Sine", "Saw", "Square", "Triangle"), 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("osc2Type", "Osc2 Type", juce::StringArray("Sine", "Saw", "Square", "Triangle", "Noise"), 0));
     params.push_back(std::make_unique<juce::AudioParameterInt>("oct1", "Octave Shift 1", -2, 2, 0));
     params.push_back(std::make_unique<juce::AudioParameterInt>("oct2", "Octave Shift 2", -2, 2, 0));
     params.push_back(std::make_unique<juce::AudioParameterInt>("detune1", "Detune Shift 1", -100, 100, 0));

@@ -21,6 +21,7 @@ OscillatorGUI::OscillatorGUI(LEMSynthAudioProcessor& p) :
     osc1Menu.addItem("Saw", 2);
     osc1Menu.addItem("Square", 3);
     osc1Menu.addItem("Triangle", 4);
+    osc1Menu.addItem("Noise", 5);
     osc1Menu.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(&osc1Menu);
 
@@ -67,6 +68,7 @@ OscillatorGUI::OscillatorGUI(LEMSynthAudioProcessor& p) :
     osc2Menu.addItem("Saw", 2);
     osc2Menu.addItem("Square", 3);
     osc2Menu.addItem("Triangle", 4);
+    osc2Menu.addItem("Noise", 5);
     osc2Menu.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(&osc2Menu);
 

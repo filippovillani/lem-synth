@@ -44,8 +44,8 @@ void LEMSynthAudioProcessorEditor::resized()
     oscGUI.setBounds    (  0,   0, 500, 220);
     envGUI.setBounds    (500,   0, 500, 220);
     odGUI.setBounds     (  0, 220, 250, 220);
-    noiseGUI.setBounds  (250, 220, 250, 220);
-    filterGUI.setBounds (500, 220, 250, 220);
+    filterGUI.setBounds  (250, 220, 250, 220);
+    noiseGUI.setBounds (500, 220, 250, 220);
     mtGUI.setBounds     (750, 220, 250, 220);
 
 }

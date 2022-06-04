@@ -55,7 +55,6 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    // TODO: Comment the audio processor value tree states
     juce::AudioProcessorValueTreeState apvts;
 
 private:

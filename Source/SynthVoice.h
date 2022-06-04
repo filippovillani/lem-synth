@@ -39,6 +39,7 @@ public:
             break;
         case 3:
             sample1 = osc1.triangle(frequency * octShiftFreq[octIdx1 + 2] * detune1);
+            break;
         case 4:
             sample1 = setNoise();
             break;

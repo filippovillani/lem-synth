@@ -30,23 +30,20 @@ private:
         attackSlider,
         decaySlider,
         sustainSlider,
-        releaseSlider,
-        shapeSlider;
+        releaseSlider;
 
     juce::Label 
         attackLabel,
         decayLabel,
         sustainLabel,
-        releaseLabel,
-        shapeLabel;
+        releaseLabel;
 
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>
         attackAttachment,
         decayAttachment,
         sustainAttachment,
-        releaseAttachment,
-        shapeAttachment;
+        releaseAttachment;
 
     LEMSynthAudioProcessor& audioProcessor;
 

@@ -108,11 +108,11 @@ double myEnvelope::adsr(double input, int trigger) {
 }
 
 void myEnvelope::setAttack(double attack_ms) {
-    attack = 1 - pow(0.01, 1.0 / (attack_ms * sampleRate * 0.001));
+    attack = 1 - pow(shape, 1.0 / (attack_ms * sampleRate * 0.001));
 }
 
 void myEnvelope::setDecay(double decay_ms) {
-    decay = pow(0.01, 1.0 / (decay_ms * sampleRate * 0.001));
+    decay = pow(shape, 1.0 / (decay_ms * sampleRate * 0.001));
 }
 
 void myEnvelope::setSustain(double sustain_level) {
@@ -120,7 +120,11 @@ void myEnvelope::setSustain(double sustain_level) {
 }
 
 void myEnvelope::setRelease(double release_ms) {
-    release = pow(0.01, 1.0 / (release_ms * sampleRate * 0.001));
+    release = pow(shape, 1.0 / (release_ms * sampleRate * 0.001));
+}
+
+void myEnvelope::setShape(double shape_factor) {
+    shape = shape_factor;
 }
 
 

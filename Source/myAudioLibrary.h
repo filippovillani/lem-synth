@@ -39,7 +39,7 @@ class myEnvelope {
     double output;
     double input;
     double curramp;
-    double attack, decay, sustain, release;
+    double attack, decay, sustain, release, shape;
     int aphase, dphase, sphase, rphase;
 
 public:
@@ -51,6 +51,7 @@ public:
     void setRelease(double release_ms);
     void setDecay(double decay_ms);
     void setSustain(double sustain_level); // sustain_level must be in (0, 1]
+    void setShape(double shape_factor);
 };
 
 

@@ -72,11 +72,13 @@ public:
         return (1. - oscMix) * sample1 + oscMix * sample2;
     }
     //  ================= ENVELOPE ==========================
-    void getEnvelopeParams(std::atomic<float>* attack, std::atomic<float>* decay, std::atomic<float>* sustain, std::atomic<float>* release) {
+    void getEnvelopeParams(std::atomic<float>* attack, std::atomic<float>* decay, 
+        std::atomic<float>* sustain, std::atomic<float>* release, std::atomic<float>* shape) {
         env1.setAttack(*attack);
         env1.setDecay(*decay);
         env1.setSustain(*sustain);
         env1.setRelease(*release);
+        env1.setShape(*shape);
     }
     
     double setEnvelope() {

@@ -56,12 +56,26 @@ EnvelopeGUI::EnvelopeGUI(LEMSynthAudioProcessor& p) : audioProcessor(p)
     releaseLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
     addAndMakeVisible(&releaseLabel);
 
+    shapeSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    shapeSlider.setRange(0.001f, 0.1f);
+    shapeSlider.setValue(0.1f);
+    shapeSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 65, 20);
+    shapeSlider.setNumDecimalPlacesToDisplay(0);
+    addAndMakeVisible(&shapeSlider);
+    shapeLabel.setText("Shape", juce::dontSendNotification);
+    shapeLabel.attachToComponent(&shapeSlider, false);
+    shapeLabel.setJustificationType(juce::Justification::centredTop);
+    shapeLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
+    addAndMakeVisible(&shapeLabel);
+
 
 
     attackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "attack", attackSlider);
     decayAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "decay", decaySlider);
     sustainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "sustain", sustainSlider);
     releaseAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "release", releaseSlider);
+    shapeAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "shape", shapeSlider);
+
 
 }
 
@@ -87,8 +101,9 @@ void EnvelopeGUI::paint(juce::Graphics& g)
 
 void EnvelopeGUI::resized()
 {
-    attackSlider.setBounds  (140,  60,  250, 30); 
-    decaySlider.setBounds   (140, 100,  250, 30);
-    sustainSlider.setBounds (140, 140, 250, 30);
-    releaseSlider.setBounds (140, 180, 250, 30);
+    attackSlider.setBounds  (120,  60,  250, 30); 
+    decaySlider.setBounds   (120, 100,  250, 30);
+    sustainSlider.setBounds (120, 140, 250,  30);
+    releaseSlider.setBounds (120, 180, 250,  30);
+    shapeSlider.setBounds   (410,  60,  50, 150);
 }

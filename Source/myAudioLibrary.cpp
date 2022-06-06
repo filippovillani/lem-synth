@@ -32,8 +32,6 @@ double myODfx::overdrive(double input, float gain, float wet) {
         else
             output = 1.;
 
-    output /= gain;
-
     return (1. - wet) * input + wet * output;
 }
 
